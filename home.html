@@ -48,72 +48,246 @@
 
 
 
-        .parent-agreement {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        .times-tables-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .parent-agreement h2 {
-            font-size: 2.2em;
-            color: #2d3748;
-            margin-bottom: 20px;
             text-align: center;
+            position: relative;
+            z-index: 5;
         }
 
-        .agreement-form {
+        .times-tables-section h2 {
+            font-size: 2.2em;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .game-intro {
+            font-size: 1.2em;
+            color: white;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .times-table-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-size: 1.1em;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #2d3748;
-        }
-
-        .form-group input, .form-group select {
-            padding: 12px;
-            border: 2px solid #667eea;
-            border-radius: 10px;
-            font-size: 1em;
-            font-family: inherit;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #48bb78;
-            box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.2);
-        }
-
-        .agreement-btn {
+        .table-btn {
             background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
+            padding: 15px 10px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .table-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .challenge-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            grid-column: span 2;
+        }
+
+        /* Game Modal Styles */
+        #game-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .game-modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .game-header h3 {
+            color: #1e3c72;
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 20px;
+            font-weight: bold;
+            color: #48bb78;
+        }
+
+        .game-progress {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #48bb78, #38a169);
+            transition: width 0.3s ease;
+        }
+
+        .game-question {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .game-question h2 {
+            font-size: 2.5em;
+            color: #1e3c72;
+            margin: 0;
+        }
+
+        .game-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .modal-option {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
             font-size: 1.3em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-            display: block;
-            margin: 0 auto;
         }
 
-        .agreement-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        .modal-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .modal-option.correct {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+
+        .modal-option.incorrect {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+        }
+
+        .modal-option:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .game-feedback {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .game-feedback.correct {
+            color: #48bb78;
+            background: rgba(72, 187, 120, 0.1);
+        }
+
+        .game-feedback.incorrect {
+            color: #f56565;
+            background: rgba(245, 101, 101, 0.1);
+        }
+
+        .completion-content {
+            text-align: center;
+        }
+
+        .completion-content h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .completion-stats {
+            margin-bottom: 30px;
+        }
+
+        .completion-stats p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .completion-stats span {
+            font-weight: bold;
+            color: #48bb78;
+        }
+
+        .completion-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .restart-btn, .close-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .restart-btn:hover, .close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
 
         .subjects-grid {
@@ -794,6 +968,8 @@
     </div>
 
     <div class="container">
+
+        
         <!-- Header -->
         <div class="header">
             <h1>🏴‍☠️ Learning Adventure</h1>
@@ -803,37 +979,25 @@
 
 
 
-        <!-- Parent Agreement Section -->
-        <div class="parent-agreement">
-            <h2>🤝 Parent-Child Learning Agreement</h2>
-            <form id="agreement-form">
-                <div class="agreement-form">
-                    <div class="form-group">
-                        <label for="child-name">Child's Name:</label>
-                        <input type="text" id="child-name" required placeholder="Enter child's name">
-                    </div>
-                    <div class="form-group">
-                        <label for="age">Age:</label>
-                        <select id="age" required>
-                            <option value="">Select age</option>
-                            <option value="7">7 years old</option>
-                            <option value="8">8 years old</option>
-                            <option value="9">9 years old</option>
-                            <option value="10">10 years old</option>
-                            <option value="11">11 years old</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="daily-goal">Daily Learning Goal (minutes):</label>
-                        <input type="number" id="daily-goal" min="15" max="120" value="30" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="reward">Agreed Reward:</label>
-                        <input type="text" id="reward" required placeholder="e.g., Extra playtime, special treat">
-                    </div>
-                </div>
-                <button type="submit" class="agreement-btn">Start Our Learning Adventure! 🚀</button>
-            </form>
+        <!-- Times Tables Game Section -->
+        <div class="times-tables-section">
+            <h2>🔢 Times Tables Adventure</h2>
+            <p class="game-intro">Master your multiplication skills with fun, interactive challenges!</p>
+            
+            <div class="times-table-grid">
+                <button class="table-btn" onclick="startTimesTable(2)">2× Table</button>
+                <button class="table-btn" onclick="startTimesTable(3)">3× Table</button>
+                <button class="table-btn" onclick="startTimesTable(4)">4× Table</button>
+                <button class="table-btn" onclick="startTimesTable(5)">5× Table</button>
+                <button class="table-btn" onclick="startTimesTable(6)">6× Table</button>
+                <button class="table-btn" onclick="startTimesTable(7)">7× Table</button>
+                <button class="table-btn" onclick="startTimesTable(8)">8× Table</button>
+                <button class="table-btn" onclick="startTimesTable(9)">9× Table</button>
+                <button class="table-btn" onclick="startTimesTable(10)">10× Table</button>
+                <button class="table-btn" onclick="startTimesTable(11)">11× Table</button>
+                <button class="table-btn" onclick="startTimesTable(12)">12× Table</button>
+                <button class="table-btn challenge-btn" onclick="startMixedChallenge()">🎯 Mixed Challenge</button>
+            </div>
         </div>
 
         <!-- Key Stage 2 Subjects -->
@@ -1036,29 +1200,7 @@
         let agreedReward = '';
         let completedActivities = JSON.parse(localStorage.getItem('completedActivities') || '[]');
 
-        document.getElementById('agreement-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            childName = document.getElementById('child-name').value;
-            const childAge = parseInt(document.getElementById('age').value);
-            dailyGoal = parseInt(document.getElementById('daily-goal').value);
-            agreedReward = document.getElementById('reward').value;
-            
-            // Save agreement to localStorage
-            localStorage.setItem('learningAgreement', JSON.stringify({
-                childName: childName,
-                childAge: childAge,
-                dailyGoal: dailyGoal,
-                agreedReward: agreedReward,
-                startDate: new Date().toISOString()
-            }));
-            
-            alert(`Learning agreement created for ${childName} (age ${childAge})! 🎉\nDaily goal: ${dailyGoal} minutes\nReward: ${agreedReward}`);
-            
-            // Update UI to show agreement is active
-            document.querySelector('.parent-agreement').style.background = 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)';
-            document.querySelector('.parent-agreement h2').style.color = 'white';
-        });
+        // Parent agreement form event listener removed - form no longer exists
 
         function startActivity(subject) {
             console.log('startActivity called with subject:', subject);
@@ -1185,18 +1327,259 @@
             alert(helpMessage);
         }
 
+        // Utility Functions
+        // Times Tables Game Variables
+        let currentTable = 2;
+        let questions = [];
+        let currentQuestion = 0;
+        let score = 0;
+        let correctAnswers = 0;
+        let streak = 0;
+        let bestStreak = 0;
+        let completedTables = JSON.parse(localStorage.getItem('completedTables') || '[]');
+        let totalScore = parseInt(localStorage.getItem('totalScore') || '0');
+
+        // Utility Functions
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        const encouragingMessages = [
+            "Excellent! 🌟", "Brilliant! 🎉", "Perfect! ⭐", "Amazing! 🚀", 
+            "Fantastic! 🎯", "Super! 💫", "Outstanding! 🏆", "Wonderful! ✨"
+        ];
+
+        const tryAgainMessages = [
+            "Keep trying! 💪", "You can do it! 🌟", "Almost there! 🎯", 
+            "Don't give up! 💫", "Try again! 🚀", "You're learning! 📚"
+        ];
+
+        // Times Tables Game Functions
+        function startTimesTable(table) {
+            console.log('startTimesTable called with table:', table);
+            try {
+                currentTable = table;
+                generateQuestions(table);
+                showGameModal();
+            } catch (error) {
+                console.error('Error in startTimesTable:', error);
+                alert('Error starting times table game: ' + error.message);
+            }
+        }
+
+        function startMixedChallenge() {
+            console.log('startMixedChallenge called');
+            currentTable = 'mixed';
+            generateMixedQuestions();
+            showGameModal();
+        }
+
+        function generateQuestions(table) {
+            questions = [];
+            for (let i = 1; i <= 12; i++) {
+                const correct = table * i;
+                const answers = [correct, ...generateWrongAnswers(correct)];
+                questions.push({
+                    question: `${table} × ${i} = ?`,
+                    correct: correct,
+                    answers: shuffleArray(answers)
+                });
+            }
+            shuffleArray(questions);
+        }
+
+        function generateMixedQuestions() {
+            questions = [];
+            const tables = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+            for (let table of tables) {
+                for (let i = 1; i <= 12; i++) {
+                    const correct = table * i;
+                    const answers = [correct, ...generateWrongAnswers(correct)];
+                    questions.push({
+                        question: `${table} × ${i} = ?`,
+                        correct: correct,
+                        answers: shuffleArray(answers)
+                    });
+                }
+            }
+            shuffleArray(questions);
+            questions = questions.slice(0, 20); // Limit to 20 questions for mixed challenge
+        }
+
+        function generateWrongAnswers(correct) {
+            const wrong = new Set();
+            while (wrong.size < 3) {
+                let wrongAnswer = correct + (Math.floor(Math.random() * 20) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                if (wrongAnswer !== correct && wrongAnswer > 0) {
+                    wrong.add(wrongAnswer);
+                }
+            }
+            return Array.from(wrong);
+        }
+
+        function showGameModal() {
+            console.log('showGameModal called');
+            
+            try {
+                // Create modal for game
+                const modal = document.createElement('div');
+                modal.id = 'game-modal';
+                modal.innerHTML = `
+                    <div class="game-modal-content">
+                        <div class="game-header">
+                            <h3>${currentTable === 'mixed' ? '🎯 Mixed Challenge' : `${currentTable}× Times Table`}</h3>
+                            <div class="game-stats">
+                                <span>Score: <span id="modal-score">0</span></span>
+                                <span>Streak: <span id="modal-streak">0</span></span>
+                            </div>
+                        </div>
+                        <div class="game-progress">
+                            <div class="progress-bar">
+                                <div id="modal-progress" class="progress-fill"></div>
+                            </div>
+                            <span id="modal-question-count">1/10</span>
+                        </div>
+                        <div class="game-question">
+                            <h2 id="modal-question">Loading...</h2>
+                        </div>
+                        <div id="modal-options" class="game-options"></div>
+                        <div id="modal-feedback" class="game-feedback"></div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                console.log('Modal added to body');
+                currentQuestion = 0;
+                score = 0;
+                correctAnswers = 0;
+                streak = 0;
+                bestStreak = 0;
+                displayModalQuestion();
+            } catch (error) {
+                console.error('Error in showGameModal:', error);
+                alert('Error creating game modal: ' + error.message);
+            }
+        }
+
+        function displayModalQuestion() {
+            console.log('displayModalQuestion called, currentQuestion:', currentQuestion, 'questions.length:', questions.length);
+            if (currentQuestion >= questions.length) {
+                showModalCompletion();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            console.log('Question:', q);
+            document.getElementById('modal-question').textContent = q.question;
+            document.getElementById('modal-question-count').textContent = `${currentQuestion + 1}/${questions.length}`;
+            document.getElementById('modal-progress').style.width = ((currentQuestion + 1) / questions.length) * 100 + '%';
+            
+            const optionsContainer = document.getElementById('modal-options');
+            optionsContainer.innerHTML = '';
+            
+            const shuffledAnswers = shuffleArray([...q.answers]);
+            
+            shuffledAnswers.forEach(answer => {
+                const button = document.createElement('button');
+                button.className = 'modal-option';
+                button.textContent = answer;
+                button.onclick = () => selectModalAnswer(answer);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('modal-feedback').textContent = '';
+        }
+
+        function selectModalAnswer(answer) {
+            const correct = questions[currentQuestion].correct;
+            const options = document.querySelectorAll('.modal-option');
+            
+            options.forEach(option => {
+                option.disabled = true;
+                if (parseInt(option.textContent) === answer) {
+                    if (answer === correct) {
+                        option.classList.add('correct');
+                        correctAnswers++;
+                        score += 10 + streak * 2;
+                        streak++;
+                        if (streak > bestStreak) bestStreak = streak;
+                        document.getElementById('modal-feedback').textContent = encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
+                        document.getElementById('modal-feedback').className = 'game-feedback correct';
+                    } else {
+                        option.classList.add('incorrect');
+                        streak = 0;
+                        document.getElementById('modal-feedback').textContent = tryAgainMessages[Math.floor(Math.random() * encouragingMessages.length)];
+                        document.getElementById('modal-feedback').className = 'game-feedback incorrect';
+                    }
+                }
+            });
+
+            updateModalStats();
+
+            setTimeout(() => {
+                currentQuestion++;
+                displayModalQuestion();
+                document.getElementById('modal-feedback').textContent = '';
+            }, 1500);
+        }
+
+        function updateModalStats() {
+            document.getElementById('modal-score').textContent = score;
+            document.getElementById('modal-streak').textContent = streak;
+        }
+
+        function showModalCompletion() {
+            const modal = document.getElementById('game-modal');
+            modal.innerHTML = `
+                <div class="completion-content">
+                    <h2>🎉 Challenge Complete!</h2>
+                    <div class="completion-stats">
+                        <p>Final Score: <span id="final-score">${score}</span></p>
+                        <p>Correct Answers: <span id="correct-count">${correctAnswers}</span>/${questions.length}</p>
+                        <p>Best Streak: <span id="best-streak">${bestStreak}</span></p>
+                    </div>
+                    <div class="completion-buttons">
+                        <button onclick="restartModalGame()" class="restart-btn">🔄 Play Again</button>
+                        <button onclick="closeModalGame()" class="close-btn">🏠 Back to Home</button>
+                    </div>
+                </div>
+            `;
+            
+            // Save progress if completed with good score
+            if (currentTable !== 'mixed' && correctAnswers >= Math.ceil(questions.length * 0.8) && !completedTables.includes(currentTable)) {
+                completedTables.push(currentTable);
+                localStorage.setItem('completedTables', JSON.stringify(completedTables));
+                totalScore += score;
+                localStorage.setItem('totalScore', totalScore.toString());
+                updateTreasureProgress();
+            }
+        }
+
+        function restartModalGame() {
+            if (currentTable === 'mixed') {
+                startMixedChallenge();
+            } else {
+                startTimesTable(currentTable);
+            }
+        }
+
+        function closeModalGame() {
+            const modal = document.getElementById('game-modal');
+            if (modal) {
+                modal.remove();
+            }
+            updateTreasureProgress();
+        }
+
         // Load existing agreement if available
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, JavaScript is working!');
-            const agreement = JSON.parse(localStorage.getItem('learningAgreement') || '{}');
-            if (agreement.childName) {
-                document.getElementById('child-name').value = agreement.childName;
-                document.getElementById('daily-goal').value = agreement.dailyGoal || 30;
-                document.getElementById('reward').value = agreement.agreedReward || '';
-                
-                // Update treasure map progress
-                updateTreasureProgress();
-            }
+            updateTreasureProgress();
         });
 
         // Update treasure map progress display
