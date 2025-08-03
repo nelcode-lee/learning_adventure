@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 Times Tables Adventure - Learning Adventure</title>
+    <title>Learning Adventure - Redirecting...</title>
+    <meta http-equiv="refresh" content="0; url=setup.html">
     <style>
         * {
             margin: 0;
@@ -232,33 +233,8 @@
     </div>
 
     <script>
-        // Check if learning agreement exists
-        document.addEventListener('DOMContentLoaded', function() {
-            const learningAgreement = localStorage.getItem('learningAgreement');
-            if (!learningAgreement) {
-                // No agreement found, redirect to setup
-                window.location.href = 'setup.html';
-                return;
-            }
-            
-            const agreement = JSON.parse(learningAgreement);
-            if (!agreement.childName) {
-                // Incomplete agreement, redirect to setup
-                window.location.href = 'setup.html';
-                return;
-            }
-            
-            // Update greeting with child's name
-            const greeting = document.querySelector('.greeting');
-            if (greeting) {
-                greeting.textContent = `Welcome, ${agreement.childName}!`;
-            }
-        });
-
-        function startAdventure() {
-            // Redirect to the main home page
-            window.location.href = 'home.html';
-        }
+        // Redirect to setup page immediately
+        window.location.href = 'setup.html';
     </script>
 </body>
 </html> 
