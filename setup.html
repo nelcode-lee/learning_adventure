@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Adventure Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .setup-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-title {
+            font-size: 2.2em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .setup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .start-adventure-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .start-adventure-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .start-adventure-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .info-text {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 20px;
+            line-height: 1.4;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            color: #27ae60;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .setup-container {
+                padding: 30px 20px;
+            }
+            
+            .welcome-title {
+                font-size: 1.8em;
+            }
+            
+            .logo {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="setup-container">
+        <div class="logo">🎓</div>
+        <h1 class="welcome-title">Welcome to Learning Adventure!</h1>
+        <p class="welcome-subtitle">Let's set up your personalised learning journey</p>
+        
+        <form class="setup-form" id="setupForm">
+            <div class="form-group">
+                <label for="childName">Child's Name:</label>
+                <input type="text" id="childName" name="childName" placeholder="Enter your child's name" required>
+                <div class="error-message" id="nameError">Please enter a valid name</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="childAge">Child's Age:</label>
+                <select id="childAge" name="childAge" required>
+                    <option value="">Select age</option>
+                    <option value="7">7 years old</option>
+                    <option value="8">8 years old</option>
+                    <option value="9">9 years old</option>
+                    <option value="10">10 years old</option>
+                    <option value="11">11 years old</option>
+                </select>
+                <div class="error-message" id="ageError">Please select an age</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="dailyGoal">Daily Learning Goal (minutes):</label>
+                <select id="dailyGoal" name="dailyGoal" required>
+                    <option value="">Select goal</option>
+                    <option value="15">15 minutes</option>
+                    <option value="20">20 minutes</option>
+                    <option value="30">30 minutes</option>
+                    <option value="45">45 minutes</option>
+                    <option value="60">60 minutes</option>
+                </select>
+                <div class="error-message" id="goalError">Please select a daily goal</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="agreedReward">Agreed Reward:</label>
+                <input type="text" id="agreedReward" name="agreedReward" placeholder="e.g., Extra screen time, special treat, etc." required>
+                <div class="error-message" id="rewardError">Please enter an agreed reward</div>
+            </div>
+            
+            <button type="submit" class="start-adventure-btn">
+                🚀 Start Learning Adventure!
+            </button>
+        </form>
+        
+        <p class="info-text">
+            This information helps us personalise your child's learning experience with age-appropriate content and track their progress towards agreed goals.
+        </p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('setupForm');
+            
+            // Check if setup is already completed
+            const existingAgreement = localStorage.getItem('learningAgreement');
+            if (existingAgreement) {
+                const agreement = JSON.parse(existingAgreement);
+                if (agreement.childName && agreement.childAge) {
+                    // Redirect to home page if setup is already done
+                    window.location.href = 'home.html';
+                    return;
+                }
+            }
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const childName = document.getElementById('childName').value.trim();
+                const childAge = document.getElementById('childAge').value;
+                const dailyGoal = document.getElementById('dailyGoal').value;
+                const agreedReward = document.getElementById('agreedReward').value.trim();
+                
+                // Reset error messages
+                document.querySelectorAll('.error-message').forEach(msg => msg.style.display = 'none');
+                
+                // Validate form
+                let isValid = true;
+                
+                if (!childName || childName.length < 2) {
+                    document.getElementById('nameError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!childAge) {
+                    document.getElementById('ageError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!dailyGoal) {
+                    document.getElementById('goalError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!agreedReward || agreedReward.length < 3) {
+                    document.getElementById('rewardError').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    return;
+                }
+                
+                // Save learning agreement to localStorage
+                const learningAgreement = {
+                    childName: childName,
+                    childAge: parseInt(childAge),
+                    dailyGoal: parseInt(dailyGoal),
+                    agreedReward: agreedReward,
+                    setupDate: new Date().toISOString()
+                };
+                
+                localStorage.setItem('learningAgreement', JSON.stringify(learningAgreement));
+                
+                // Show success message briefly
+                const submitBtn = document.querySelector('.start-adventure-btn');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = '✅ Setup Complete!';
+                submitBtn.style.background = 'linear-gradient(135deg, #27ae60 0%, #2ecc71 100%)';
+                
+                // Redirect to home page after brief delay
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 1500);
+            });
+            
+            // Real-time validation
+            document.getElementById('childName').addEventListener('input', function() {
+                const error = document.getElementById('nameError');
+                if (this.value.trim().length >= 2) {
+                    error.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('childAge').addEventListener('change', function() {
+                const error = document.getElementById('ageError');
+                if (this.value) {
+                    error.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('dailyGoal').addEventListener('change', function() {
+                const error = document.getElementById('goalError');
+                if (this.value) {
+                    error.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('agreedReward').addEventListener('input', function() {
+                const error = document.getElementById('rewardError');
+                if (this.value.trim().length >= 3) {
+                    error.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

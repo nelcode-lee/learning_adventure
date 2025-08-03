@@ -527,6 +527,12 @@
             }
             
             childName = enteredName;
+            
+            // Save to learning agreement format
+            const learningAgreement = JSON.parse(localStorage.getItem('learningAgreement') || '{}');
+            learningAgreement.childName = childName;
+            localStorage.setItem('learningAgreement', JSON.stringify(learningAgreement));
+            
             showMenuScreen();
             updateJourneyProgress();
         }
@@ -726,8 +732,30 @@
             alert(progressMessage);
         }
 
-        // Enable Enter key on name input
+        // Initialize the game
         document.addEventListener('DOMContentLoaded', function() {
+            // Load completed tables from localStorage
+            completedTables = JSON.parse(localStorage.getItem('completedTables') || '[]');
+            
+            // Check for learning agreement
+            const learningAgreement = localStorage.getItem('learningAgreement');
+            if (learningAgreement) {
+                const agreement = JSON.parse(learningAgreement);
+                if (agreement.childName) {
+                    childName = agreement.childName;
+                    // Skip name input screen and show menu directly
+                    showMenuScreen();
+                    return;
+                }
+            }
+            
+            // If no learning agreement, check for old childName
+            childName = localStorage.getItem('childName') || '';
+            if (childName) {
+                showMenuScreen();
+            }
+            
+            // Enable Enter key on name input
             const nameInput = document.getElementById('child-name');
             nameInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {

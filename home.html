@@ -66,11 +66,62 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
+        .breadcrumb {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 15px;
+            text-align: left;
+            color: white;
+        }
+
         .game-intro {
             font-size: 1.2em;
             color: white;
             margin-bottom: 25px;
             opacity: 0.9;
+        }
+
+        .setup-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .name-input {
+            width: 300px;
+            padding: 15px 20px;
+            border: 3px solid #48bb78;
+            border-radius: 15px;
+            font-size: 1.1em;
+            text-align: center;
+            background: white;
+            color: #333;
+        }
+
+        .name-input:focus {
+            outline: none;
+            border-color: #38a169;
+            box-shadow: 0 0 10px rgba(72, 187, 120, 0.3);
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
         .times-table-grid {
@@ -964,6 +1015,7 @@
         <div class="nav-buttons">
             <button class="nav-btn" onclick="showProgress()">📊 Progress</button>
             <button class="nav-btn" onclick="showHelp()">❓ Help</button>
+            <button class="nav-btn" onclick="resetSetup()">🔄 Reset</button>
         </div>
     </div>
 
@@ -979,26 +1031,7 @@
 
 
 
-        <!-- Times Tables Game Section -->
-        <div class="times-tables-section">
-            <h2>🔢 Times Tables Adventure</h2>
-            <p class="game-intro">Master your multiplication skills with fun, interactive challenges!</p>
-            
-            <div class="times-table-grid">
-                <button class="table-btn" onclick="startTimesTable(2)">2× Table</button>
-                <button class="table-btn" onclick="startTimesTable(3)">3× Table</button>
-                <button class="table-btn" onclick="startTimesTable(4)">4× Table</button>
-                <button class="table-btn" onclick="startTimesTable(5)">5× Table</button>
-                <button class="table-btn" onclick="startTimesTable(6)">6× Table</button>
-                <button class="table-btn" onclick="startTimesTable(7)">7× Table</button>
-                <button class="table-btn" onclick="startTimesTable(8)">8× Table</button>
-                <button class="table-btn" onclick="startTimesTable(9)">9× Table</button>
-                <button class="table-btn" onclick="startTimesTable(10)">10× Table</button>
-                <button class="table-btn" onclick="startTimesTable(11)">11× Table</button>
-                <button class="table-btn" onclick="startTimesTable(12)">12× Table</button>
-                <button class="table-btn challenge-btn" onclick="startMixedChallenge()">🎯 Mixed Challenge</button>
-            </div>
-        </div>
+
 
         <!-- Key Stage 2 Subjects -->
         <div class="subjects-grid">
@@ -1202,6 +1235,8 @@
 
         // Parent agreement form event listener removed - form no longer exists
 
+
+
         function startActivity(subject) {
             console.log('startActivity called with subject:', subject);
             
@@ -1325,6 +1360,13 @@
             helpMessage += `Need more help? Contact support! 📧`;
             
             alert(helpMessage);
+        }
+
+        function resetSetup() {
+            if (confirm('Are you sure you want to reset your setup? This will clear all saved data and redirect you to the setup page.')) {
+                localStorage.clear();
+                window.location.href = 'setup.html';
+            }
         }
 
         // Utility Functions
@@ -1579,6 +1621,22 @@
         // Load existing agreement if available
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, JavaScript is working!');
+            
+            // Check if learning agreement exists
+            const learningAgreement = localStorage.getItem('learningAgreement');
+            if (!learningAgreement) {
+                // No agreement found, redirect to setup
+                window.location.href = 'setup.html';
+                return;
+            }
+            
+            const agreement = JSON.parse(learningAgreement);
+            if (!agreement.childName || !agreement.childAge) {
+                // Incomplete agreement, redirect to setup
+                window.location.href = 'setup.html';
+                return;
+            }
+            
             updateTreasureProgress();
         });
 
