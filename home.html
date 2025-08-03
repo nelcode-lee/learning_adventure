@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Adventure - Key Stage 2 Educational Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #4a5568;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #718096;
+            margin-bottom: 20px;
+        }
+
+
+
+        .parent-agreement {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .parent-agreement h2 {
+            font-size: 2.2em;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .agreement-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .form-group input, .form-group select {
+            padding: 12px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #48bb78;
+            box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.2);
+        }
+
+        .agreement-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .agreement-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .subject-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .subject-card.clickable {
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+        }
+
+        .subject-card.coming-soon {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .subject-card.coming-soon:hover {
+            transform: none;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .coming-soon-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #718096;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7em;
+            font-weight: bold;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .subject-card h3 {
+            font-size: 1.8em;
+            color: #4a5568;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subject-card .emoji {
+            font-size: 1.5em;
+        }
+
+        .learning-goals {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .learning-goals li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .learning-goals li:last-child {
+            border-bottom: none;
+        }
+
+        .learning-goals li::before {
+            content: '🎯';
+            font-size: 1.2em;
+        }
+
+        .progress-indicator {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #48bb78, #38a169);
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .learning-progress-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 3px solid rgba(255,215,0,0.3);
+        }
+
+        .progress-header-main {
+            margin-bottom: 30px;
+        }
+
+        .progress-header-main h2 {
+            font-size: 2.8em;
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+            to { text-shadow: 2px 2px 20px rgba(255, 215, 0, 0.8); }
+        }
+
+        .progress-intro {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .treasure-map-container {
+            position: relative;
+            min-height: 500px;
+            margin: 30px 0;
+            padding: 20px 0;
+        }
+
+        .map-ocean {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #006994 0%, #1e90ff 50%, #006994 100%);
+            border-radius: 20px;
+            opacity: 0.8;
+            animation: wave 3s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .map-islands {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            position: relative;
+            z-index: 5;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .island {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            border-radius: 20px;
+            padding: 25px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+
+        .island:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border-color: #ffd700;
+        }
+
+        .island-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .island-content h4 {
+            font-size: 1.4em;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .island-content p {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .island-status {
+            font-size: 0.8em;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .island-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .island:hover .island-glow {
+            opacity: 1;
+        }
+
+        .island.completed {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            border-color: #ffd700;
+            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+        }
+
+        .island.completed .island-glow {
+            background: radial-gradient(circle, rgba(72,187,120,0.4) 0%, transparent 70%);
+            opacity: 1;
+        }
+
+        .treasure-chest.unlocked {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.8);
+            animation: treasureGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes treasureGlow {
+            from { box-shadow: 0 12px 35px rgba(255, 215, 0, 0.8); }
+            to { box-shadow: 0 12px 35px rgba(255, 215, 0, 1.2), 0 0 30px rgba(255, 215, 0, 0.6); }
+        }
+
+        .treasure-chest {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            z-index: 8;
+            border: 3px solid rgba(255,255,255,0.5);
+        }
+
+        .treasure-chest:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+        }
+
+        .chest-icon {
+            font-size: 3.5em;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .chest-sparkle {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #fff 0%, transparent 70%);
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .chest-label {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9em;
+            color: #ffd700;
+            font-weight: bold;
+            white-space: nowrap;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+
+        .island-status {
+            background: rgba(255,255,255,0.9);
+            color: #228B22;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .treasure-progress {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 10;
+            border: 3px solid rgba(255,215,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .treasure-progress h3 {
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .progress-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            border: 2px solid rgba(255,215,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .progress-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-color: rgba(255,215,0,0.6);
+        }
+
+        .progress-icon {
+            font-size: 2em;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+        }
+
+        .progress-text {
+            font-weight: bold;
+            color: #1e3c72;
+            font-size: 1.1em;
+        }
+
+        /* Overall Progress Bar */
+        .overall-progress {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255,215,0,0.3);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-title {
+            font-weight: bold;
+            color: #1e3c72;
+            font-size: 1.2em;
+        }
+
+        .progress-percentage {
+            font-weight: bold;
+            color: #48bb78;
+            font-size: 1.3em;
+        }
+
+        .progress-bar-container {
+            height: 12px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #48bb78, #38a169);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        /* Enhanced Progress Items */
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            border: 2px solid rgba(255,215,0,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .progress-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-color: rgba(255,215,0,0.6);
+        }
+
+        .progress-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .progress-bar-mini {
+            height: 6px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill-mini {
+            height: 100%;
+            background: linear-gradient(90deg, #48bb78, #38a169);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-arrow {
+            color: #1e3c72;
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .progress-item:hover .progress-arrow {
+            transform: translateX(5px);
+        }
+
+        /* Achievement Summary */
+        .achievement-summary {
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-radius: 15px;
+            border: 2px solid rgba(255,215,0,0.3);
+        }
+
+        .achievement-summary h4 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .achievement-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .achievement-item {
+            padding: 10px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            color: #1e3c72;
+            font-weight: bold;
+            text-align: center;
+            animation: achievementGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes achievementGlow {
+            from { box-shadow: 0 2px 8px rgba(255,215,0,0.3); }
+            to { box-shadow: 0 2px 12px rgba(255,215,0,0.6); }
+        }
+
+
+
+        .island.locked {
+            background: linear-gradient(135deg, #718096 0%, #4a5568 100%);
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .island.completed {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #8b4513;
+        }
+
+        .treasure-chest {
+            font-size: 4em;
+            margin: 30px 0;
+            animation: sparkle 2s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        .treasure-chest::before {
+            content: '🗺️';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Adjust main container for fixed nav */
+        body {
+            padding-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .agreement-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .map-islands {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <a href="home.html" class="nav-logo">🏴‍☠️ Learning Adventure</a>
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="showProgress()">📊 Progress</button>
+            <button class="nav-btn" onclick="showHelp()">❓ Help</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏴‍☠️ Learning Adventure</h1>
+            <p>Transform screen time into educational treasure with Key Stage 2 learning goals</p>
+            <p>Parent-approved, child-focused learning journey</p>
+        </div>
+
+
+
+        <!-- Parent Agreement Section -->
+        <div class="parent-agreement">
+            <h2>🤝 Parent-Child Learning Agreement</h2>
+            <form id="agreement-form">
+                <div class="agreement-form">
+                    <div class="form-group">
+                        <label for="child-name">Child's Name:</label>
+                        <input type="text" id="child-name" required placeholder="Enter child's name">
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <select id="age" required>
+                            <option value="">Select age</option>
+                            <option value="7">7 years old</option>
+                            <option value="8">8 years old</option>
+                            <option value="9">9 years old</option>
+                            <option value="10">10 years old</option>
+                            <option value="11">11 years old</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="daily-goal">Daily Learning Goal (minutes):</label>
+                        <input type="number" id="daily-goal" min="15" max="120" value="30" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reward">Agreed Reward:</label>
+                        <input type="text" id="reward" required placeholder="e.g., Extra playtime, special treat">
+                    </div>
+                </div>
+                <button type="submit" class="agreement-btn">Start Our Learning Adventure! 🚀</button>
+            </form>
+        </div>
+
+        <!-- Key Stage 2 Subjects -->
+        <div class="subjects-grid">
+            <div class="subject-card clickable" onclick="startSubjectActivity('math')">
+                <h3><span class="emoji">🔢</span>Mathematics</h3>
+                <ul class="learning-goals">
+                    <li>Times tables (2-12)</li>
+                    <li>Addition and subtraction</li>
+                    <li>Multiplication and division</li>
+                    <li>Fractions and decimals</li>
+                    <li>Problem solving</li>
+                </ul>
+                <div class="progress-indicator">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div style="text-align: center; margin-top: 15px; color: #48bb78; font-weight: bold;">🎮 Click to Practice!</div>
+            </div>
+
+            <div class="subject-card clickable" onclick="startSubjectActivity('english')">
+                <h3><span class="emoji">📚</span>English</h3>
+                <ul class="learning-goals">
+                    <li>Reading comprehension</li>
+                    <li>Creative writing</li>
+                    <li>Grammar and punctuation</li>
+                    <li>Spelling patterns</li>
+                    <li>Vocabulary building</li>
+                </ul>
+                <div class="progress-indicator">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div style="text-align: center; margin-top: 15px; color: #48bb78; font-weight: bold;">🎮 Click to Practice!</div>
+            </div>
+
+            <div class="subject-card clickable" onclick="startSubjectActivity('science')">
+                <h3><span class="emoji">🔬</span>Science</h3>
+                <ul class="learning-goals">
+                    <li>Living things and habitats</li>
+                    <li>Materials and properties</li>
+                    <li>Forces and motion</li>
+                    <li>Light and sound</li>
+                    <li>Scientific investigation</li>
+                </ul>
+                <div class="progress-indicator">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div style="text-align: center; margin-top: 15px; color: #48bb78; font-weight: bold;">🎮 Click to Practice!</div>
+            </div>
+
+            <div class="subject-card clickable" onclick="startSubjectActivity('geography')">
+                <h3><span class="emoji">🌍</span>Geography</h3>
+                <ul class="learning-goals">
+                    <li>UK and world maps</li>
+                    <li>Physical and human features</li>
+                    <li>Weather and climate</li>
+                    <li>Settlements and land use</li>
+                    <li>Environmental awareness</li>
+                </ul>
+                <div class="progress-indicator">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div style="text-align: center; margin-top: 15px; color: #48bb78; font-weight: bold;">🎮 Click to Practice!</div>
+            </div>
+
+            <div class="subject-card clickable" onclick="startSubjectActivity('history')">
+                <h3><span class="emoji">⏰</span>History</h3>
+                <ul class="learning-goals">
+                    <li>Ancient civilizations</li>
+                    <li>British history</li>
+                    <li>Significant events</li>
+                    <li>Historical sources</li>
+                    <li>Chronological understanding</li>
+                </ul>
+                <div class="progress-indicator">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div style="text-align: center; margin-top: 15px; color: #48bb78; font-weight: bold;">🎮 Click to Practice!</div>
+            </div>
+
+            <div class="subject-card clickable" onclick="startSubjectActivity('art')">
+                <h3><span class="emoji">🎨</span>Art & Design</h3>
+                <ul class="learning-goals">
+                    <li>Drawing and painting</li>
+                    <li>Digital art creation</li>
+                    <li>Famous artists</li>
+                    <li>Color theory</li>
+                    <li>Creative expression</li>
+                </ul>
+                <div class="progress-indicator">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div style="text-align: center; margin-top: 15px; color: #48bb78; font-weight: bold;">🎮 Click to Practice!</div>
+            </div>
+        </div>
+
+        <!-- Learning Progress Section -->
+        <div class="learning-progress-section">
+            <div class="progress-header-main">
+                <h2>🏆 Your Learning Progress</h2>
+                <p class="progress-intro">Track your progress across all Key Stage 2 subjects and celebrate your achievements!</p>
+            </div>
+            
+            <!-- Overall Progress Bar -->
+            <div class="overall-progress">
+                <div class="progress-header">
+                    <span class="progress-title">Overall Completion</span>
+                    <span class="progress-percentage" id="overall-percentage">0%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="overall-progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Subject Progress Cards -->
+            <div class="progress-summary">
+                <div class="progress-item" onclick="showSubjectDetails('math')">
+                    <span class="progress-icon">🔢</span>
+                    <div class="progress-content">
+                        <span class="progress-text">Math: <span id="math-progress">In Progress</span></span>
+                        <div class="progress-bar-mini">
+                            <div class="progress-fill-mini" id="math-progress-fill"></div>
+                        </div>
+                    </div>
+                    <span class="progress-arrow">▶</span>
+                </div>
+                <div class="progress-item" onclick="showSubjectDetails('reading')">
+                    <span class="progress-icon">📚</span>
+                    <div class="progress-content">
+                        <span class="progress-text">Reading: <span id="reading-progress">In Progress</span></span>
+                        <div class="progress-bar-mini">
+                            <div class="progress-fill-mini" id="reading-progress-fill"></div>
+                        </div>
+                    </div>
+                    <span class="progress-arrow">▶</span>
+                </div>
+                <div class="progress-item" onclick="showSubjectDetails('science')">
+                    <span class="progress-icon">🔬</span>
+                    <div class="progress-content">
+                        <span class="progress-text">Science: <span id="science-progress">In Progress</span></span>
+                        <div class="progress-bar-mini">
+                            <div class="progress-fill-mini" id="science-progress-fill"></div>
+                        </div>
+                    </div>
+                    <span class="progress-arrow">▶</span>
+                </div>
+                <div class="progress-item" onclick="showSubjectDetails('geography')">
+                    <span class="progress-icon">🌍</span>
+                    <div class="progress-content">
+                        <span class="progress-text">Geography: <span id="geography-progress">In Progress</span></span>
+                        <div class="progress-bar-mini">
+                            <div class="progress-fill-mini" id="geography-progress-fill"></div>
+                        </div>
+                    </div>
+                    <span class="progress-arrow">▶</span>
+                </div>
+                <div class="progress-item" onclick="showSubjectDetails('history')">
+                    <span class="progress-icon">⏰</span>
+                    <div class="progress-content">
+                        <span class="progress-text">History: <span id="history-progress">In Progress</span></span>
+                        <div class="progress-bar-mini">
+                            <div class="progress-fill-mini" id="history-progress-fill"></div>
+                        </div>
+                    </div>
+                    <span class="progress-arrow">▶</span>
+                </div>
+                <div class="progress-item" onclick="showSubjectDetails('art')">
+                    <span class="progress-icon">🎨</span>
+                    <div class="progress-content">
+                        <span class="progress-text">Art: <span id="art-progress">In Progress</span></span>
+                        <div class="progress-bar-mini">
+                            <div class="progress-fill-mini" id="art-progress-fill"></div>
+                        </div>
+                    </div>
+                    <span class="progress-arrow">▶</span>
+                </div>
+            </div>
+
+            <!-- Achievement Summary -->
+            <div class="achievement-summary">
+                <h4>🏅 Recent Achievements</h4>
+                <div class="achievement-list" id="achievement-list">
+                    <div class="achievement-item">🎯 Start your learning journey!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="index.html" class="nav-btn">🎮 Play Times Tables</a>
+            <a href="reading-island.html" class="nav-btn">📚 Reading Island (Direct Link)</a>
+            <a href="geography-island.html" class="nav-btn">🌍 Geography Island (Direct Link)</a>
+            <button class="nav-btn" onclick="showProgress()">📊 View Progress</button>
+            <button class="nav-btn" onclick="testClick()">🧪 Test Click</button>
+        </div>
+    </div>
+
+    <script>
+        let childName = '';
+        let dailyGoal = 30;
+        let agreedReward = '';
+        let completedActivities = JSON.parse(localStorage.getItem('completedActivities') || '[]');
+
+        document.getElementById('agreement-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            childName = document.getElementById('child-name').value;
+            const childAge = parseInt(document.getElementById('age').value);
+            dailyGoal = parseInt(document.getElementById('daily-goal').value);
+            agreedReward = document.getElementById('reward').value;
+            
+            // Save agreement to localStorage
+            localStorage.setItem('learningAgreement', JSON.stringify({
+                childName: childName,
+                childAge: childAge,
+                dailyGoal: dailyGoal,
+                agreedReward: agreedReward,
+                startDate: new Date().toISOString()
+            }));
+            
+            alert(`Learning agreement created for ${childName} (age ${childAge})! 🎉\nDaily goal: ${dailyGoal} minutes\nReward: ${agreedReward}`);
+            
+            // Update UI to show agreement is active
+            document.querySelector('.parent-agreement').style.background = 'linear-gradient(135deg, #48bb78 0%, #38a169 100%)';
+            document.querySelector('.parent-agreement h2').style.color = 'white';
+        });
+
+        function startActivity(subject) {
+            console.log('startActivity called with subject:', subject);
+            
+            if (subject === 'math') {
+                console.log('Redirecting to index.html');
+                window.location.href = 'index.html';
+            } else if (subject === 'reading') {
+                console.log('Redirecting to reading-island.html');
+                window.location.href = 'reading-island.html';
+            } else if (subject === 'science') {
+                console.log('Redirecting to science-island.html');
+                window.location.href = 'science-island.html';
+            } else if (subject === 'geography') {
+                console.log('Redirecting to geography-island.html');
+                window.location.href = 'geography-island.html';
+            } else if (subject === 'history') {
+                console.log('Redirecting to history-island.html');
+                window.location.href = 'history-island.html';
+            } else if (subject === 'art') {
+                console.log('Redirecting to art-island.html');
+                window.location.href = 'art-island.html';
+            } else {
+                console.log('Subject not found:', subject);
+                alert('This activity is coming soon! 🚧');
+            }
+        }
+
+        function startSubjectActivity(subject) {
+            console.log('startSubjectActivity called with subject:', subject);
+            
+            if (subject === 'math') {
+                console.log('Redirecting to index.html');
+                window.location.href = 'index.html';
+            } else if (subject === 'english') {
+                console.log('Redirecting to reading-island.html');
+                window.location.href = 'reading-island.html';
+            } else if (subject === 'science') {
+                console.log('Redirecting to science-island.html');
+                window.location.href = 'science-island.html';
+            } else if (subject === 'geography') {
+                console.log('Redirecting to geography-island.html');
+                window.location.href = 'geography-island.html';
+            } else if (subject === 'history') {
+                console.log('Redirecting to history-island.html');
+                window.location.href = 'history-island.html';
+            } else if (subject === 'art') {
+                console.log('Redirecting to art-island.html');
+                window.location.href = 'art-island.html';
+            } else {
+                console.log('Subject not found:', subject);
+                alert('This subject is coming soon! 🚧');
+            }
+        }
+
+        function showLockedMessage() {
+            alert('This island will be unlocked soon! Complete Math Island first to progress on your journey. 🗺️');
+        }
+
+        function showProgress() {
+            const agreement = JSON.parse(localStorage.getItem('learningAgreement') || '{}');
+            const completedActivities = JSON.parse(localStorage.getItem('completedActivities') || '[]');
+            const completedTables = JSON.parse(localStorage.getItem('completedTables') || '[]');
+            const completedReadingAreas = JSON.parse(localStorage.getItem('completedReadingAreas') || '[]');
+            
+            let progressMessage = `📊 Learning Progress Report\n\n`;
+            progressMessage += `Child: ${agreement.childName || 'Not set'}\n`;
+            progressMessage += `Age: ${agreement.childAge || 'Not set'} years old\n`;
+            progressMessage += `Daily Goal: ${agreement.dailyGoal || 30} minutes\n`;
+            progressMessage += `Agreed Reward: ${agreement.agreedReward || 'Not set'}\n\n`;
+            progressMessage += `🏆 Overall Progress:\n`;
+            progressMessage += `Completed Activities: ${completedActivities.length}\n`;
+            progressMessage += `Math Progress: ${completedActivities.includes('math') ? '✅ Completed' : '⏳ In Progress'}\n`;
+            progressMessage += `Reading Progress: ${completedActivities.includes('reading') ? '✅ Completed' : '⏳ In Progress'}\n\n`;
+            progressMessage += `🔢 Times Tables Progress:\n`;
+            progressMessage += `Completed Tables: ${completedTables.length}/12\n`;
+            if (completedTables.length > 0) {
+                progressMessage += `✅ Mastered: ${completedTables.join('×, ')}× tables\n`;
+            }
+            progressMessage += `\n📚 Reading Island Progress:\n`;
+            progressMessage += `Completed Areas: ${completedReadingAreas.length}/6\n`;
+            if (completedReadingAreas.length > 0) {
+                progressMessage += `✅ Mastered: ${completedReadingAreas.join(', ')}\n`;
+            }
+            progressMessage += `\n🗺️ Journey Status: Level ${Math.floor((completedTables.length + completedReadingAreas.length) / 3) + 1}\n`;
+            progressMessage += `\nKeep going! You're doing great! 🌟`;
+            
+            alert(progressMessage);
+        }
+
+        function testClick() {
+            alert('Test click is working! JavaScript is functioning correctly.');
+        }
+
+        function showHelp() {
+            let helpMessage = `❓ Learning Adventure Help\n\n`;
+            helpMessage += `🏴‍☠️ How to Use This Platform:\n\n`;
+            helpMessage += `1. 🤝 Create Learning Agreement\n`;
+            helpMessage += `   • Set your child's name and age\n`;
+            helpMessage += `   • Agree on daily learning time\n`;
+            helpMessage += `   • Choose a reward for completion\n\n`;
+            helpMessage += `2. 📚 Choose Your Subject\n`;
+            helpMessage += `   • Click on any subject card to practice\n`;
+            helpMessage += `   • Available: Math (Times Tables) & English (Reading)\n`;
+            helpMessage += `   • Coming Soon: Science, Geography, History, Art\n\n`;
+            helpMessage += `3. 🗺️ Explore Learning Islands\n`;
+            helpMessage += `   • Math Island: Times Tables Adventure\n`;
+            helpMessage += `   • Reading Island: English Skills Adventure\n`;
+            helpMessage += `   • Complete activities to unlock new islands\n\n`;
+            helpMessage += `4. 🎮 Play Educational Games\n`;
+            helpMessage += `   • Interactive learning activities\n`;
+            helpMessage += `   • Streak bonuses and achievements\n`;
+            helpMessage += `   • Progress saved automatically\n\n`;
+            helpMessage += `5. 🏆 Earn Rewards\n`;
+            helpMessage += `   • Complete daily goals\n`;
+            helpMessage += `   • Unlock treasure chest\n`;
+            helpMessage += `   • Celebrate achievements\n\n`;
+            helpMessage += `📱 Navigation:\n`;
+            helpMessage += `• Click subject cards for direct access\n`;
+            helpMessage += `• Use the top navigation bar\n`;
+            helpMessage += `• Progress button shows achievements\n\n`;
+            helpMessage += `Need more help? Contact support! 📧`;
+            
+            alert(helpMessage);
+        }
+
+        // Load existing agreement if available
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, JavaScript is working!');
+            const agreement = JSON.parse(localStorage.getItem('learningAgreement') || '{}');
+            if (agreement.childName) {
+                document.getElementById('child-name').value = agreement.childName;
+                document.getElementById('daily-goal').value = agreement.dailyGoal || 30;
+                document.getElementById('reward').value = agreement.agreedReward || '';
+                
+                // Update treasure map progress
+                updateTreasureProgress();
+            }
+        });
+
+        // Update treasure map progress display
+        function updateTreasureProgress() {
+            // Load progress from localStorage
+            const mathProgress = JSON.parse(localStorage.getItem('completedTables') || '[]');
+            const readingProgress = JSON.parse(localStorage.getItem('completedReadingAreas') || '[]');
+            const scienceProgress = JSON.parse(localStorage.getItem('completedScienceAreas') || '[]');
+            const geographyProgress = JSON.parse(localStorage.getItem('geographyProgress') || '{}');
+            const historyProgress = JSON.parse(localStorage.getItem('historyProgress') || '{}');
+            const artProgress = JSON.parse(localStorage.getItem('artProgress') || '{}');
+
+            // Calculate progress percentages
+            const mathPercentage = Math.min((mathProgress.length / 12) * 100, 100);
+            const readingPercentage = Math.min((readingProgress.length / 6) * 100, 100);
+            const sciencePercentage = Math.min((scienceProgress.length / 5) * 100, 100);
+            const geographyPercentage = Math.min(((geographyProgress.completedAreas ? geographyProgress.completedAreas.length : 0) / 5) * 100, 100);
+            const historyPercentage = Math.min(((historyProgress.completedAreas ? historyProgress.completedAreas.length : 0) / 5) * 100, 100);
+            const artPercentage = Math.min(((artProgress.completedAreas ? artProgress.completedAreas.length : 0) / 5) * 100, 100);
+
+            // Calculate overall progress
+            const overallPercentage = Math.round((mathPercentage + readingPercentage + sciencePercentage + geographyPercentage + historyPercentage + artPercentage) / 6);
+
+            // Update overall progress bar
+            document.getElementById('overall-percentage').textContent = `${overallPercentage}%`;
+            document.getElementById('overall-progress-bar').style.width = `${overallPercentage}%`;
+
+            // Update individual progress bars
+            document.getElementById('math-progress-fill').style.width = `${mathPercentage}%`;
+            document.getElementById('reading-progress-fill').style.width = `${readingPercentage}%`;
+            document.getElementById('science-progress-fill').style.width = `${sciencePercentage}%`;
+            document.getElementById('geography-progress-fill').style.width = `${geographyPercentage}%`;
+            document.getElementById('history-progress-fill').style.width = `${historyPercentage}%`;
+            document.getElementById('art-progress-fill').style.width = `${artPercentage}%`;
+
+            // Update progress displays
+            document.getElementById('math-progress').textContent = 
+                mathProgress.length > 0 ? `✅ ${mathProgress.length}/12 Tables` : '⏳ In Progress';
+            
+            document.getElementById('reading-progress').textContent = 
+                readingProgress.length > 0 ? `✅ ${readingProgress.length}/6 Areas` : '⏳ In Progress';
+            
+            document.getElementById('science-progress').textContent = 
+                scienceProgress.length > 0 ? `✅ ${scienceProgress.length}/5 Areas` : '⏳ In Progress';
+            
+            document.getElementById('geography-progress').textContent = 
+                geographyProgress.completedAreas && geographyProgress.completedAreas.length > 0 ? 
+                `✅ ${geographyProgress.completedAreas.length}/5 Areas` : '⏳ In Progress';
+            
+            document.getElementById('history-progress').textContent = 
+                historyProgress.completedAreas && historyProgress.completedAreas.length > 0 ? 
+                `✅ ${historyProgress.completedAreas.length}/5 Areas` : '⏳ In Progress';
+            
+            document.getElementById('art-progress').textContent = 
+                artProgress.completedAreas && artProgress.completedAreas.length > 0 ? 
+                `✅ ${artProgress.completedAreas.length}/5 Areas` : '⏳ In Progress';
+
+            // Update island status based on progress
+            updateIslandStatus('math', mathProgress.length > 0);
+            updateIslandStatus('reading', readingProgress.length > 0);
+            updateIslandStatus('science', scienceProgress.length > 0);
+            updateIslandStatus('geography', geographyProgress.completedAreas && geographyProgress.completedAreas.length > 0);
+            updateIslandStatus('history', historyProgress.completedAreas && historyProgress.completedAreas.length > 0);
+            updateIslandStatus('art', artProgress.completedAreas && artProgress.completedAreas.length > 0);
+
+            // Update achievements
+            updateAchievements();
+
+            // Check if all islands are completed
+            checkTreasureChest();
+        }
+
+        // Show subject details
+        function showSubjectDetails(subject) {
+            const subjectNames = {
+                'math': 'Mathematics',
+                'reading': 'Reading',
+                'science': 'Science',
+                'geography': 'Geography',
+                'history': 'History',
+                'art': 'Art & Design'
+            };
+
+            const progress = JSON.parse(localStorage.getItem(`completed${subject.charAt(0).toUpperCase() + subject.slice(1)}Areas`) || '[]');
+            const totalAreas = subject === 'math' ? 12 : 5;
+            const completedCount = progress.length;
+            const percentage = Math.round((completedCount / totalAreas) * 100);
+
+            let message = `📚 ${subjectNames[subject]} Progress\n\n`;
+            message += `🎯 Overall: ${completedCount}/${totalAreas} areas completed\n`;
+            message += `📊 Percentage: ${percentage}%\n\n`;
+
+            if (completedCount > 0) {
+                message += `✅ Completed Areas:\n`;
+                progress.forEach(area => {
+                    message += `   • ${area}\n`;
+                });
+            } else {
+                message += `⏳ No areas completed yet.\n`;
+                message += `Start your ${subjectNames[subject]} adventure!`;
+            }
+
+            alert(message);
+        }
+
+        // Update achievements
+        function updateAchievements() {
+            const achievements = [];
+            const mathProgress = JSON.parse(localStorage.getItem('completedTables') || '[]');
+            const readingProgress = JSON.parse(localStorage.getItem('completedReadingAreas') || '[]');
+            const scienceProgress = JSON.parse(localStorage.getItem('completedScienceAreas') || '[]');
+            const geographyProgress = JSON.parse(localStorage.getItem('geographyProgress') || '{}');
+            const historyProgress = JSON.parse(localStorage.getItem('historyProgress') || '{}');
+            const artProgress = JSON.parse(localStorage.getItem('artProgress') || '{}');
+
+            // Check for achievements
+            if (mathProgress.length > 0) achievements.push('🔢 Math Master: Completed first times table!');
+            if (readingProgress.length > 0) achievements.push('📚 Reading Champion: Completed first reading area!');
+            if (scienceProgress.length > 0) achievements.push('🔬 Science Explorer: Completed first science area!');
+            if (geographyProgress.completedAreas && geographyProgress.completedAreas.length > 0) {
+                achievements.push('🌍 Geography Pioneer: Completed first geography area!');
+            }
+            if (historyProgress.completedAreas && historyProgress.completedAreas.length > 0) {
+                achievements.push('⏰ History Time Traveler: Completed first history area!');
+            }
+            if (artProgress.completedAreas && artProgress.completedAreas.length > 0) {
+                achievements.push('🎨 Art Creator: Completed first art area!');
+            }
+
+            // Check for milestone achievements
+            const totalCompleted = mathProgress.length + readingProgress.length + scienceProgress.length + 
+                (geographyProgress.completedAreas ? geographyProgress.completedAreas.length : 0) +
+                (historyProgress.completedAreas ? historyProgress.completedAreas.length : 0) +
+                (artProgress.completedAreas ? artProgress.completedAreas.length : 0);
+
+            if (totalCompleted >= 5) achievements.push('🏆 Learning Explorer: Completed 5 areas!');
+            if (totalCompleted >= 10) achievements.push('🌟 Knowledge Seeker: Completed 10 areas!');
+            if (totalCompleted >= 20) achievements.push('👑 Master Learner: Completed 20 areas!');
+
+            // Update achievement list
+            const achievementList = document.getElementById('achievement-list');
+            if (achievements.length > 0) {
+                achievementList.innerHTML = achievements.map(achievement => 
+                    `<div class="achievement-item">${achievement}</div>`
+                ).join('');
+            } else {
+                achievementList.innerHTML = '<div class="achievement-item">🎯 Start your learning journey!</div>';
+            }
+        }
+
+        // Update individual island status
+        function updateIslandStatus(islandType, isCompleted) {
+            const island = document.querySelector(`.${islandType}-island`);
+            if (island) {
+                if (isCompleted) {
+                    island.classList.add('completed');
+                    island.querySelector('.island-status').textContent = '✅ Completed';
+                    island.querySelector('.island-status').style.background = 'rgba(72, 187, 120, 0.3)';
+                } else {
+                    island.classList.remove('completed');
+                    island.querySelector('.island-status').textContent = '✅ Available';
+                    island.querySelector('.island-status').style.background = 'rgba(255,255,255,0.2)';
+                }
+            }
+        }
+
+        // Check if treasure chest should be unlocked
+        function checkTreasureChest() {
+            const mathProgress = JSON.parse(localStorage.getItem('completedTables') || '[]');
+            const readingProgress = JSON.parse(localStorage.getItem('completedReadingAreas') || '[]');
+            const scienceProgress = JSON.parse(localStorage.getItem('completedScienceAreas') || '[]');
+            const geographyProgress = JSON.parse(localStorage.getItem('geographyProgress') || '{}');
+            const historyProgress = JSON.parse(localStorage.getItem('historyProgress') || '{}');
+            const artProgress = JSON.parse(localStorage.getItem('artProgress') || '{}');
+
+            const allCompleted = 
+                mathProgress.length > 0 &&
+                readingProgress.length > 0 &&
+                scienceProgress.length > 0 &&
+                (geographyProgress.completedAreas && geographyProgress.completedAreas.length > 0) &&
+                (historyProgress.completedAreas && historyProgress.completedAreas.length > 0) &&
+                (artProgress.completedAreas && artProgress.completedAreas.length > 0);
+
+            const treasureChest = document.getElementById('treasure-chest');
+            if (treasureChest) {
+                if (allCompleted) {
+                    treasureChest.classList.add('unlocked');
+                    treasureChest.onclick = () => {
+                        alert('🎉 Congratulations! You have unlocked the Ultimate Treasure! 🏆\n\nYou have completed all learning islands and mastered Key Stage 2 skills!');
+                    };
+                } else {
+                    treasureChest.classList.remove('unlocked');
+                    treasureChest.onclick = () => {
+                        alert('🔒 The Ultimate Treasure is locked!\n\nComplete all learning islands to unlock this special reward! 🏆');
+                    };
+                }
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Island - Key Stage 2 Science Adventure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Adjust main container for fixed nav */
+        body {
+            padding-top: 60px;
+        }
+
+        .header {
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #718096;
+            margin-bottom: 10px;
+        }
+
+        .science-island {
+            background: linear-gradient(135deg, #98FB98 0%, #32CD32 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .island-title {
+            font-size: 2.5em;
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .science-areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .science-area {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .science-area:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .science-area.current {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+        }
+
+        .science-area.completed {
+            background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
+            color: white;
+        }
+
+        .area-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .area-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .area-description {
+            font-size: 1em;
+            color: #718096;
+            line-height: 1.4;
+        }
+
+        .game-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .game-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .game-title {
+            font-size: 2em;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .game-description {
+            font-size: 1.2em;
+            color: #718096;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #718096;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #32CD32, #228B22);
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+
+        .challenge-area {
+            background: linear-gradient(135deg, #FFE4B5 0%, #F0E68C 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #DAA520;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-area.active {
+            border: 3px solid #8B4513;
+            box-shadow: 0 0 20px rgba(139, 69, 19, 0.3);
+            animation: pulse 2s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .challenge-question {
+            font-size: 1.5em;
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .science-passage {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #DAA520;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .option.correct {
+            background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
+            animation: correct 0.6s ease;
+        }
+
+        .option.incorrect {
+            background: linear-gradient(135deg, #DC143C 0%, #FF4500 100%);
+            animation: incorrect 0.6s ease;
+        }
+
+        @keyframes correct {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrect {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .feedback {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 20px 0;
+            height: 30px;
+        }
+
+        .feedback.correct {
+            color: #228B22;
+        }
+
+        .feedback.incorrect {
+            color: #DC143C;
+        }
+
+        .scroll-to-question {
+            background: linear-gradient(135deg, #8B4513 0%, #DAA520 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px 0;
+        }
+
+        .scroll-to-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .completion-screen {
+            text-align: center;
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+        }
+
+        .trophy-celebration {
+            font-size: 6em;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+            
+            .science-areas {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <a href="home.html" class="nav-logo">🔬 Science Island</a>
+        <div class="nav-buttons">
+            <a href="home.html" class="nav-btn">🏠 Home</a>
+            <a href="reading-island.html" class="nav-btn">📚 Reading</a>
+            <a href="geography-island.html" class="nav-btn">🌍 Geography</a>
+            <a href="history-island.html" class="nav-btn">⏰ History</a>
+            <a href="art-island.html" class="nav-btn">🎨 Art</a>
+            <a href="index.html" class="nav-btn">🔢 Math</a>
+            <button class="nav-btn" onclick="showProgress()">📊 Progress</button>
+            <button class="nav-btn" onclick="showHelp()">❓ Help</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔬 Science Island</h1>
+            <p>Explore the wonders of science through fun experiments and discoveries!</p>
+            <p>Based on Key Stage 2 Science curriculum - Living things, materials, forces, and more!</p>
+            <div id="age-indicator" style="background: rgba(255,255,255,0.9); padding: 10px; border-radius: 10px; margin-top: 15px; font-weight: bold; color: #8B4513;">
+                🎯 Age-Appropriate Content: <span id="age-display">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Science Island -->
+        <div class="science-island">
+            <div class="island-title">Science Adventure Areas</div>
+            
+            <div class="science-areas">
+                <div class="science-area" onclick="startChallenge('living-things')">
+                    <div class="area-icon">🌱</div>
+                    <div class="area-title">Living Things & Habitats</div>
+                    <div class="area-description">Learn about plants, animals, and their environments</div>
+                </div>
+
+                <div class="science-area" onclick="startChallenge('materials')">
+                    <div class="area-icon">🧪</div>
+                    <div class="area-title">Materials & Properties</div>
+                    <div class="area-description">Explore different materials and their characteristics</div>
+                </div>
+
+                <div class="science-area" onclick="startChallenge('forces')">
+                    <div class="area-icon">⚡</div>
+                    <div class="area-title">Forces & Motion</div>
+                    <div class="area-description">Discover how forces make things move and change</div>
+                </div>
+
+                <div class="science-area" onclick="startChallenge('light-sound')">
+                    <div class="area-icon">💡</div>
+                    <div class="area-title">Light & Sound</div>
+                    <div class="area-description">Investigate light, sound, and how we sense them</div>
+                </div>
+
+                <div class="science-area" onclick="startChallenge('investigation')">
+                    <div class="area-icon">🔬</div>
+                    <div class="area-title">Scientific Investigation</div>
+                    <div class="area-description">Learn how scientists ask questions and find answers</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Panel -->
+        <div class="game-panel" id="game-panel">
+            <div class="game-info">
+                <div class="game-title" id="game-title">Welcome to Science Island!</div>
+                <div class="game-description" id="game-description">Choose a science area to start your learning adventure!</div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-label">Areas Completed</div>
+                        <div class="stat-value" id="completed-areas">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Questions Answered</div>
+                        <div class="stat-value" id="questions-answered">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Current Area</div>
+                        <div class="stat-value" id="current-area">-</div>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="challenge-area hidden" id="challenge-area">
+                <button class="scroll-to-question" onclick="scrollToQuestion()">🔬 Scroll to Question</button>
+                <div class="challenge-question" id="challenge-question">Ready to explore?</div>
+                <div id="challenge-content"></div>
+                <div class="options" id="options"></div>
+                <div class="feedback" id="feedback"></div>
+            </div>
+        </div>
+
+        <!-- Completion Screen -->
+        <div class="completion-screen hidden" id="completion-screen">
+            <div class="trophy-celebration">🏆</div>
+            <h2>🌟 Science Master!</h2>
+            <p>Congratulations! You've completed all science challenges and mastered Key Stage 2 science skills!</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-label">Total Areas</div>
+                    <div class="stat-value">5</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Questions Mastered</div>
+                    <div class="stat-value" id="final-questions">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Science Level</div>
+                    <div class="stat-value">Advanced</div>
+                </div>
+            </div>
+            <div>
+                <button class="option" onclick="restartScience()">🔄 Start New Science Journey</button>
+                <button class="option" onclick="window.location.href='home.html'">🏠 Return Home</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentArea = null;
+        let completedAreas = [];
+        let questionsAnswered = 0;
+        let totalAreas = 5;
+        let currentQuestion = 0;
+        let questions = [];
+        let childAge = 7; // Default age
+
+        // Load child's age from learning agreement
+        function loadChildAge() {
+            const agreement = JSON.parse(localStorage.getItem('learningAgreement') || '{}');
+            childAge = agreement.childAge || 7;
+            console.log(`Child's age loaded: ${childAge}`);
+            
+            // Update the age display
+            const ageDisplay = document.getElementById('age-display');
+            if (ageDisplay) {
+                ageDisplay.textContent = `${childAge} years old`;
+            }
+        }
+
+        // Call this when page loads
+        loadChildAge();
+
+        // Reusable function to shuffle arrays (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        const scienceChallenges = {
+            'living-things': {
+                title: 'Living Things & Habitats Challenge',
+                description: 'Learn about plants, animals, and their environments',
+                getQuestions: function() {
+                    if (childAge <= 7) {
+                        return this.questionsAge7;
+                    } else if (childAge <= 8) {
+                        return this.questionsAge8;
+                    } else if (childAge <= 9) {
+                        return this.questionsAge9;
+                    } else if (childAge <= 10) {
+                        return this.questionsAge10;
+                    } else {
+                        return this.questionsAge11;
+                    }
+                },
+                questionsAge7: [
+                    {
+                        type: 'passage',
+                        passage: 'A rabbit lives in a burrow in the ground. It eats grass and vegetables. Rabbits have long ears and fluffy tails.',
+                        question: 'Where does a rabbit live?',
+                        options: ['In a tree', 'In a burrow', 'In water', 'In a nest'],
+                        correct: 'In a burrow',
+                        explanation: 'Rabbits live in burrows - holes they dig in the ground! 🐰'
+                    },
+                    {
+                        type: 'word',
+                        word: 'habitat',
+                        question: 'What is a habitat?',
+                        options: ['A type of food', 'Where an animal lives', 'A type of animal', 'A type of plant'],
+                        correct: 'Where an animal lives',
+                        explanation: 'A habitat is where an animal or plant lives naturally! 🏠'
+                    },
+                    {
+                        type: 'passage',
+                        passage: 'Plants need water, sunlight, and soil to grow. They make their own food using sunlight.',
+                        question: 'What do plants need to grow?',
+                        options: ['Only water', 'Water, sunlight, and soil', 'Only soil', 'Only sunlight'],
+                        correct: 'Water, sunlight, and soil',
+                        explanation: 'Plants need water, sunlight, and soil to grow healthy and strong! 🌱'
+                    }
+                ],
+                questionsAge8: [
+                    {
+                        type: 'passage',
+                        passage: 'A pond is home to many living things. Fish swim in the water, frogs live on the banks, and insects fly above the surface.',
+                        question: 'What lives in a pond?',
+                        options: ['Only fish', 'Fish, frogs, and insects', 'Only frogs', 'Only insects'],
+                        correct: 'Fish, frogs, and insects',
+                        explanation: 'Ponds are full of life - fish, frogs, insects, and many other creatures! 🐸'
+                    },
+                    {
+                        type: 'word',
+                        word: 'ecosystem',
+                        question: 'What is an ecosystem?',
+                        options: ['A type of animal', 'A community of living things and their environment', 'A type of plant', 'A type of habitat'],
+                        correct: 'A community of living things and their environment',
+                        explanation: 'An ecosystem is a community where living things interact with each other and their environment! 🌍'
+                    },
+                    {
+                        type: 'passage',
+                        passage: 'Birds have feathers and wings. They can fly through the air. Most birds build nests to lay their eggs.',
+                        question: 'What can birds do that most animals cannot?',
+                        options: ['Swim', 'Fly', 'Dig', 'Climb'],
+                        correct: 'Fly',
+                        explanation: 'Birds are special because they can fly through the air! 🦅'
+                    }
+                ],
+                questionsAge9: [
+                    {
+                        type: 'passage',
+                        passage: 'A food chain shows how energy moves through an ecosystem. Plants are producers, herbivores eat plants, and carnivores eat other animals.',
+                        question: 'What are plants in a food chain called?',
+                        options: ['Consumers', 'Producers', 'Predators', 'Prey'],
+                        correct: 'Producers',
+                        explanation: 'Plants are called producers because they produce their own food using sunlight! 🌿'
+                    },
+                    {
+                        type: 'word',
+                        word: 'adaptation',
+                        question: 'What is an adaptation?',
+                        options: ['A type of food', 'A way animals change to survive', 'A type of habitat', 'A type of plant'],
+                        correct: 'A way animals change to survive',
+                        explanation: 'Adaptations help animals survive in their environment, like camouflage or special body parts! 🦒'
+                    },
+                    {
+                        type: 'passage',
+                        passage: 'The Arctic is a cold habitat. Polar bears have thick fur and fat to keep warm. They also have white fur to hide in the snow.',
+                        question: 'How do polar bears survive in the cold Arctic?',
+                        options: ['They hibernate all year', 'They have thick fur and fat', 'They migrate south', 'They don\'t need protection'],
+                        correct: 'They have thick fur and fat',
+                        explanation: 'Polar bears have thick fur and fat to stay warm in the freezing Arctic! 🐻‍❄️'
+                    }
+                ],
+                questionsAge10: [
+                    {
+                        type: 'passage',
+                        passage: 'A rainforest is a hot, wet habitat with many trees. It has four layers: forest floor, understory, canopy, and emergent layer.',
+                        question: 'How many layers does a rainforest have?',
+                        options: ['Two', 'Three', 'Four', 'Five'],
+                        correct: 'Four',
+                        explanation: 'Rainforests have four distinct layers, each with different plants and animals! 🌳'
+                    },
+                    {
+                        type: 'word',
+                        word: 'biodiversity',
+                        question: 'What does biodiversity mean?',
+                        options: ['A type of plant', 'The variety of living things in an area', 'A type of animal', 'A type of habitat'],
+                        correct: 'The variety of living things in an area',
+                        explanation: 'Biodiversity means having many different types of living things in one place! 🌺'
+                    },
+                    {
+                        type: 'passage',
+                        passage: 'Some animals are endangered, which means there are very few left. Habitat destruction and pollution are major threats to wildlife.',
+                        question: 'What is a major threat to wildlife?',
+                        options: ['Too much food', 'Habitat destruction', 'Too much water', 'Too much sunlight'],
+                        correct: 'Habitat destruction',
+                        explanation: 'Habitat destruction is when animals lose their homes due to human activities! 🏗️'
+                    }
+                ],
+                questionsAge11: [
+                    {
+                        type: 'passage',
+                        passage: 'A food web is more complex than a food chain. It shows how many different animals and plants are connected in an ecosystem.',
+                        question: 'How is a food web different from a food chain?',
+                        options: ['It shows more connections', 'It only shows plants', 'It only shows animals', 'It shows less connections'],
+                        correct: 'It shows more connections',
+                        explanation: 'A food web shows many connections between different living things in an ecosystem! 🕸️'
+                    },
+                    {
+                        type: 'word',
+                        word: 'symbiosis',
+                        question: 'What is symbiosis?',
+                        options: ['A type of animal', 'A relationship where two species help each other', 'A type of plant', 'A type of habitat'],
+                        correct: 'A relationship where two species help each other',
+                        explanation: 'Symbiosis is when two different species live together and help each other! 🤝'
+                    },
+                    {
+                        type: 'passage',
+                        passage: 'Climate change affects habitats worldwide. Rising temperatures can cause some animals to move to new areas or become extinct.',
+                        question: 'How does climate change affect animals?',
+                        options: ['It makes them bigger', 'It makes them move to new areas', 'It makes them eat more', 'It makes them sleep more'],
+                        correct: 'It makes them move to new areas',
+                        explanation: 'Climate change can force animals to move to new areas to find suitable habitats! 🌡️'
+                    }
+                ]
+            },
+            'materials': {
+                title: 'Materials & Properties Challenge',
+                description: 'Explore different materials and their characteristics',
+                getQuestions: function() {
+                    if (childAge <= 7) {
+                        return this.questionsAge7;
+                    } else if (childAge <= 8) {
+                        return this.questionsAge8;
+                    } else if (childAge <= 9) {
+                        return this.questionsAge9;
+                    } else if (childAge <= 10) {
+                        return this.questionsAge10;
+                    } else {
+                        return this.questionsAge11;
+                    }
+                },
+                questionsAge7: [
+                    {
+                        type: 'passage',
+                        passage: 'Wood is a natural material that comes from trees. It is strong and can be used to make furniture and buildings.',
+                        question: 'Where does wood come from?',
+                        options: ['Rocks', 'Trees', 'Water', 'Soil'],
+                        correct: 'Trees',
+                        explanation: 'Wood comes from trees - it\'s a natural material! 🌳'
+                    },
+                    {
+                        type: 'word',
+                        word: 'material',
+                        question: 'What is a material?',
+                        options: ['A type of animal', 'Something used to make things', 'A type of plant', 'A type of food'],
+                        correct: 'Something used to make things',
+                        explanation: 'Materials are what we use to make things, like wood, metal, or plastic! 🔧'
+                    },
+                    {
+                        type: 'passage',
+                        passage: 'Metal is hard and shiny. It can be used to make tools and machines. Some metals are magnetic.',
+                        question: 'What property does metal have?',
+                        options: ['It is soft', 'It is hard and shiny', 'It is transparent', 'It is flexible'],
+                        correct: 'It is hard and shiny',
+                        explanation: 'Metal is hard and shiny - that\'s why we use it for tools and machines! ⚙️'
+                    }
+                ],
+                questionsAge8: [
+                    {
+                        type: 'passage',
+                        passage: 'Plastic is a man-made material. It can be molded into different shapes and is waterproof. Many toys are made of plastic.',
+                        question: 'What type of material is plastic?',
+                        options: ['Natural', 'Man-made', 'Metal', 'Wood'],
+                        correct: 'Man-made',
+                        explanation: 'Plastic is man-made - humans created it in factories! 🏭'
+                    },
+                    {
+                        type: 'word',
+                        word: 'property',
+                        question: 'What is a property of a material?',
+                        options: ['A type of material', 'A characteristic or feature', 'A type of tool', 'A type of machine'],
+                        correct: 'A characteristic or feature',
+                        explanation: 'Properties are characteristics like hard, soft, shiny, or transparent! 📋'
+                    },
+                    {
+                        type: 'passage',
+                        passage: 'Glass is transparent, which means you can see through it. It is also hard and can break easily.',
+                        question: 'What does transparent mean?',
+                        options: ['Hard', 'Soft', 'You can see through it', 'Shiny'],
+                        correct: 'You can see through it',
+                        explanation: 'Transparent means you can see through it, like glass or clear plastic! 🔍'
+                    }
+                ],
+                questionsAge9: [
+                    {
+                        type: 'passage',
+                        passage: 'Rubber is flexible and elastic. It can stretch and return to its original shape. It is used to make tires and erasers.',
+                        question: 'What property does rubber have?',
+                        options: ['It is rigid', 'It is flexible and elastic', 'It is transparent', 'It is magnetic'],
+                        correct: 'It is flexible and elastic',
+                        explanation: 'Rubber is flexible and elastic - it can stretch and bounce back! 🏀'
+                    },
+                    {
+                        type: 'word',
+                        word: 'conductor',
+                        question: 'What is a conductor?',
+                        options: ['A type of material', 'A material that allows electricity or heat to pass through', 'A type of tool', 'A type of machine'],
+                        correct: 'A material that allows electricity or heat to pass through',
+                        explanation: 'Conductors allow electricity or heat to pass through easily, like metal! ⚡'
+                    },
+                    {
+                        type: 'passage',
+                        passage: 'Ceramic materials are made from clay and heated at high temperatures. They are hard, brittle, and can withstand heat.',
+                        question: 'What are ceramic materials made from?',
+                        options: ['Metal', 'Plastic', 'Clay', 'Wood'],
+                        correct: 'Clay',
+                        explanation: 'Ceramic materials are made from clay that is heated at high temperatures! 🏺'
+                    }
+                ],
+                questionsAge10: [
+                    {
+                        type: 'passage',
+                        passage: 'Composite materials are made by combining two or more different materials. They often have better properties than the individual materials.',
+                        question: 'What are composite materials?',
+                        options: ['Natural materials', 'Materials made by combining different materials', 'Only metal materials', 'Only plastic materials'],
+                        correct: 'Materials made by combining different materials',
+                        explanation: 'Composite materials combine different materials to create better properties! 🔗'
+                    },
+                    {
+                        type: 'word',
+                        word: 'insulator',
+                        question: 'What is an insulator?',
+                        options: ['A type of material', 'A material that blocks electricity or heat', 'A type of tool', 'A type of machine'],
+                        correct: 'A material that blocks electricity or heat',
+                        explanation: 'Insulators block electricity or heat from passing through, like rubber or plastic! 🛡️'
+                    },
+                    {
+                        type: 'passage',
+                        passage: 'Smart materials can change their properties in response to their environment. For example, some materials change color with temperature.',
+                        question: 'What can smart materials do?',
+                        options: ['Only change color', 'Change properties in response to environment', 'Only conduct electricity', 'Only insulate'],
+                        correct: 'Change properties in response to environment',
+                        explanation: 'Smart materials can change their properties based on their environment! 🧠'
+                    }
+                ],
+                questionsAge11: [
+                    {
+                        type: 'passage',
+                        passage: 'Nanomaterials are materials with particles smaller than 100 nanometers. They have unique properties due to their small size.',
+                        question: 'What makes nanomaterials special?',
+                        options: ['Their large size', 'Their small size', 'Their color', 'Their weight'],
+                        correct: 'Their small size',
+                        explanation: 'Nanomaterials have unique properties because their particles are extremely small! 🔬'
+                    },
+                    {
+                        type: 'word',
+                        word: 'biodegradable',
+                        question: 'What does biodegradable mean?',
+                        options: ['A type of material', 'A material that can break down naturally', 'A type of tool', 'A type of machine'],
+                        correct: 'A material that can break down naturally',
+                        explanation: 'Biodegradable materials can break down naturally by bacteria and other living things! ♻️'
+                    },
+                    {
+                        type: 'passage',
+                        passage: 'Sustainable materials are those that can be produced without depleting natural resources. They help protect the environment.',
+                        question: 'What are sustainable materials?',
+                        options: ['Only natural materials', 'Materials that don\'t deplete natural resources', 'Only man-made materials', 'Only expensive materials'],
+                        correct: 'Materials that don\'t deplete natural resources',
+                        explanation: 'Sustainable materials help protect the environment by not depleting natural resources! 🌱'
+                    }
+                ]
+            }
+        };
+
+        function startChallenge(areaId) {
+            if (completedAreas.includes(areaId)) {
+                alert('You\'ve already completed this area! Try another one.');
+                return;
+            }
+
+            currentArea = areaId;
+            const challenge = scienceChallenges[areaId];
+            
+            document.getElementById('game-title').textContent = challenge.title;
+            document.getElementById('game-description').textContent = challenge.description;
+            document.getElementById('current-area').textContent = challenge.title;
+            
+            // Update area styling
+            updateAreaStyles();
+            
+            // Start the question sequence with age-appropriate questions
+            questions = challenge.getQuestions ? challenge.getQuestions() : challenge.questions;
+            currentQuestion = 0;
+            displayQuestion();
+            
+            document.getElementById('challenge-area').classList.remove('hidden');
+            
+            // Add active class for visual feedback
+            document.getElementById('challenge-area').classList.add('active');
+            
+            // Scroll to the challenge area with smooth animation
+            setTimeout(() => {
+                document.getElementById('challenge-area').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }, 100);
+            
+            // Remove active class after animation
+            setTimeout(() => {
+                document.getElementById('challenge-area').classList.remove('active');
+            }, 3000);
+        }
+
+        function updateAreaStyles() {
+            // Reset all areas
+            document.querySelectorAll('.science-area').forEach(area => {
+                area.classList.remove('current', 'completed');
+            });
+            
+            // Mark current area
+            if (currentArea) {
+                const currentElement = document.querySelector(`[onclick="startChallenge('${currentArea}')"]`);
+                if (currentElement) {
+                    currentElement.classList.add('current');
+                }
+            }
+            
+            // Mark completed areas
+            completedAreas.forEach(areaId => {
+                const element = document.querySelector(`[onclick="startChallenge('${areaId}')"]`);
+                if (element) {
+                    element.classList.add('completed');
+                }
+            });
+        }
+
+        function displayQuestion() {
+            if (currentQuestion >= questions.length) {
+                completeArea();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            let content = '';
+            
+            if (q.type === 'passage') {
+                content = `<div class="science-passage">${q.passage}</div>`;
+            } else if (q.type === 'word') {
+                content = `<div class="science-passage"><h3>Word: <strong>${q.word}</strong></h3></div>`;
+            }
+            
+            document.getElementById('challenge-question').textContent = q.question;
+            document.getElementById('challenge-content').innerHTML = content;
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            // Always shuffle options to randomize correct answer position
+            const shuffledOptions = shuffleArray([...q.options]);
+            
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = option;
+                button.onclick = () => selectAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('feedback').textContent = '';
+            
+            // Scroll to the question area to ensure it's visible
+            setTimeout(() => {
+                document.getElementById('challenge-question').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }, 50);
+        }
+
+        function selectAnswer(answer) {
+            const correct = questions[currentQuestion].correct;
+            const options = document.querySelectorAll('.option');
+            const explanation = questions[currentQuestion].explanation || '';
+            
+            options.forEach(option => {
+                option.disabled = true;
+                if (option.textContent === answer) {
+                    if (answer === correct) {
+                        option.classList.add('correct');
+                        document.getElementById('feedback').textContent = 'Excellent! 🌟';
+                        document.getElementById('feedback').className = 'feedback correct';
+                    } else {
+                        option.classList.add('incorrect');
+                        document.getElementById('feedback').textContent = 'Try again! 💪';
+                        document.getElementById('feedback').className = 'feedback incorrect';
+                    }
+                }
+            });
+
+            // Show explanation for science questions
+            if (explanation) {
+                setTimeout(() => {
+                    document.getElementById('feedback').innerHTML = `<div style="margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.9); border-radius: 8px; font-size: 0.9em; color: #2d3748;"><strong>💡 Science Fact:</strong> ${explanation}</div>`;
+                }, 1000);
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                displayQuestion();
+                document.getElementById('feedback').textContent = '';
+            }, 3000);
+        }
+
+        function completeArea() {
+            if (!completedAreas.includes(currentArea)) {
+                completedAreas.push(currentArea);
+                questionsAnswered += questions.length;
+                updateStats();
+                updateAreaStyles();
+            }
+
+            if (completedAreas.length >= totalAreas) {
+                showCompletion();
+            } else {
+                alert(`Great job! You've completed the ${scienceChallenges[currentArea].title}! 🎉`);
+                currentArea = null;
+                document.getElementById('challenge-area').classList.add('hidden');
+                document.getElementById('game-title').textContent = 'Welcome to Science Island!';
+                document.getElementById('game-description').textContent = 'Choose another science area to continue your learning adventure!';
+                document.getElementById('current-area').textContent = '-';
+            }
+        }
+
+        function scrollToQuestion() {
+            document.getElementById('challenge-question').scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+        }
+
+        function updateStats() {
+            document.getElementById('completed-areas').textContent = completedAreas.length;
+            document.getElementById('questions-answered').textContent = questionsAnswered;
+            document.getElementById('progress').style.width = (completedAreas.length / totalAreas) * 100 + '%';
+        }
+
+        function showCompletion() {
+            document.getElementById('game-panel').classList.add('hidden');
+            document.getElementById('completion-screen').classList.remove('hidden');
+            document.getElementById('final-questions').textContent = questionsAnswered;
+        }
+
+        function restartScience() {
+            completedAreas = [];
+            questionsAnswered = 0;
+            currentArea = null;
+            currentQuestion = 0;
+            
+            document.getElementById('completion-screen').classList.add('hidden');
+            document.getElementById('game-panel').classList.remove('hidden');
+            document.getElementById('challenge-area').classList.add('hidden');
+            
+            document.getElementById('game-title').textContent = 'Welcome to Science Island!';
+            document.getElementById('game-description').textContent = 'Choose a science area to start your learning adventure!';
+            document.getElementById('current-area').textContent = '-';
+            
+            updateStats();
+            updateAreaStyles();
+        }
+
+        function showProgress() {
+            const agreement = JSON.parse(localStorage.getItem('learningAgreement') || '{}');
+            
+            let progressMessage = `🔬 Science Island Progress\n\n`;
+            progressMessage += `Child: ${agreement.childName || 'Scientist'}\n`;
+            progressMessage += `Age: ${agreement.childAge || 'Not set'} years old\n`;
+            progressMessage += `Age-Appropriate Content: ✅\n`;
+            progressMessage += `Areas Completed: ${completedAreas.length}/${totalAreas}\n`;
+            progressMessage += `Questions Answered: ${questionsAnswered}\n`;
+            progressMessage += `Progress: ${Math.round((completedAreas.length / totalAreas) * 100)}%\n\n`;
+            
+            if (completedAreas.length > 0) {
+                progressMessage += `✅ Completed Areas:\n`;
+                completedAreas.forEach(areaId => {
+                    progressMessage += `• ${scienceChallenges[areaId].title}\n`;
+                });
+            }
+            
+            progressMessage += `\n🔬 Science Skills: ${completedAreas.length >= totalAreas ? '🏆 Mastered!' : '⏳ Still Learning...'}\n`;
+            progressMessage += `\nKeep exploring! Discovery awaits! 🔬`;
+            
+            alert(progressMessage);
+        }
+
+        function showHelp() {
+            let helpMessage = `❓ Science Island Help\n\n`;
+            helpMessage += `🔬 How to Play:\n\n`;
+            helpMessage += `1. 🏝️ Choose a Science Area\n`;
+            helpMessage += `   • Living Things: Learn about plants, animals, and habitats\n`;
+            helpMessage += `   • Materials: Explore different materials and properties\n`;
+            helpMessage += `   • Forces: Discover how forces make things move\n`;
+            helpMessage += `   • Light & Sound: Investigate light, sound, and senses\n`;
+            helpMessage += `   • Investigation: Learn scientific methods\n\n`;
+            helpMessage += `2. 🔬 Read and Answer\n`;
+            helpMessage += `   • Read science passages carefully\n`;
+            helpMessage += `   • Choose the best answer\n`;
+            helpMessage += `   • Learn from science facts\n\n`;
+            helpMessage += `3. 🏆 Complete All Areas\n`;
+            helpMessage += `   • Finish all 5 science areas\n`;
+            helpMessage += `   • Master Key Stage 2 science skills\n`;
+            helpMessage += `   • Earn your science trophy\n\n`;
+            helpMessage += `4. 📊 Track Progress\n`;
+            helpMessage += `   • Monitor completed areas\n`;
+            helpMessage += `   • Check questions answered\n`;
+            helpMessage += `   • View learning progress\n\n`;
+            helpMessage += `🔬 Science Skills Covered:\n`;
+            helpMessage += `• Living things and habitats\n`;
+            helpMessage += `• Materials and their properties\n`;
+            helpMessage += `• Forces and motion\n`;
+            helpMessage += `• Light and sound\n`;
+            helpMessage += `• Scientific investigation\n\n`;
+            helpMessage += `Happy exploring! 🔬`;
+            
+            alert(helpMessage);
+        }
+
+        // Initialize the game
+        updateStats();
+        updateAreaStyles();
+    </script>
+</body>
+</html> 

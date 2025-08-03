@@ -1,0 +1,348 @@
+{
+  "geography": {
+    "age7": [
+      {
+        "question": "What is a map?",
+        "options": ["A picture of the world", "A drawing that shows places", "A type of book", "A kind of toy"],
+        "correct": "A drawing that shows places",
+        "explanation": "A map is a drawing that shows places and how to get from one place to another! 🗺️"
+      },
+      {
+        "question": "What color is usually used for water on a map?",
+        "options": ["Red", "Blue", "Green", "Yellow"],
+        "correct": "Blue",
+        "explanation": "Water like oceans, seas, and lakes are usually shown in blue on maps! 🌊"
+      },
+      {
+        "question": "What is the weather like today?",
+        "options": ["Sunny", "Rainy", "Cloudy", "All of these"],
+        "correct": "All of these",
+        "explanation": "Weather can be sunny, rainy, cloudy, or many other types! ☀️🌧️"
+      },
+      {
+        "question": "Where do people live?",
+        "options": ["In houses", "In cities", "In villages", "All of these"],
+        "correct": "All of these",
+        "explanation": "People live in many different places - houses, cities, villages, and more! 🏠"
+      },
+      {
+        "question": "What is a river?",
+        "options": ["A big lake", "Moving water", "A type of mountain", "A kind of road"],
+        "correct": "Moving water",
+        "explanation": "A river is moving water that flows from high places to low places! 🌊"
+      },
+      {
+        "question": "What do we call the place where we live?",
+        "options": ["Our home", "Our country", "Our address", "All of these"],
+        "correct": "All of these",
+        "explanation": "The place where we live can be called our home, country, or address! 🏠"
+      },
+      {
+        "question": "What is a mountain?",
+        "options": ["A very tall hill", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A very tall hill",
+        "explanation": "A mountain is a very tall hill that reaches high into the sky! ⛰️"
+      },
+      {
+        "question": "What color is grass usually shown on a map?",
+        "options": ["Blue", "Green", "Red", "Yellow"],
+        "correct": "Green",
+        "explanation": "Grass and land areas are usually shown in green on maps! 🌱"
+      },
+      {
+        "question": "What is a beach?",
+        "options": ["A sandy place by the sea", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "A sandy place by the sea",
+        "explanation": "A beach is a sandy place next to the sea where people can play! 🏖️"
+      },
+      {
+        "question": "What do we call the air around us?",
+        "options": ["Wind", "Atmosphere", "Weather", "All of these"],
+        "correct": "All of these",
+        "explanation": "The air around us can be called wind, atmosphere, or weather! 💨"
+      },
+      {
+        "question": "What is a forest?",
+        "options": ["A place with many trees", "A type of building", "A kind of road", "A type of mountain"],
+        "correct": "A place with many trees",
+        "explanation": "A forest is a place with many trees growing close together! 🌲"
+      },
+      {
+        "question": "What is a lake?",
+        "options": ["Moving water", "Still water", "A type of mountain", "A kind of road"],
+        "correct": "Still water",
+        "explanation": "A lake is still water surrounded by land! 🏞️"
+      },
+      {
+        "question": "What do we call the place where we go to school?",
+        "options": ["Our home", "Our school", "Our city", "Our country"],
+        "correct": "Our school",
+        "explanation": "The place where we learn is called our school! 🏫"
+      },
+      {
+        "question": "What is a desert?",
+        "options": ["A very hot, dry place", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "A very hot, dry place",
+        "explanation": "A desert is a very hot, dry place with lots of sand! 🏜️"
+      },
+      {
+        "question": "What color is snow usually shown on a map?",
+        "options": ["Blue", "Green", "White", "Yellow"],
+        "correct": "White",
+        "explanation": "Snow and ice are usually shown in white on maps! ❄️"
+      },
+      {
+        "question": "What is a valley?",
+        "options": ["A low place between hills", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A low place between hills",
+        "explanation": "A valley is a low place between hills or mountains! 🏔️"
+      },
+      {
+        "question": "What do we call the place where we buy food?",
+        "options": ["Our home", "A shop", "Our school", "Our city"],
+        "correct": "A shop",
+        "explanation": "The place where we buy food is called a shop! 🛒"
+      },
+      {
+        "question": "What is an island?",
+        "options": ["Land surrounded by water", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "Land surrounded by water",
+        "explanation": "An island is land that is completely surrounded by water! 🏝️"
+      },
+      {
+        "question": "What color is usually used for roads on a map?",
+        "options": ["Blue", "Green", "Red", "Grey"],
+        "correct": "Grey",
+        "explanation": "Roads are usually shown in grey or black on maps! 🛣️"
+      },
+      {
+        "question": "What is a hill?",
+        "options": ["A small mountain", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A small mountain",
+        "explanation": "A hill is like a small mountain that rises above the land! ⛰️"
+      },
+      {
+        "question": "What do we call the place where we sleep?",
+        "options": ["Our home", "Our school", "Our city", "Our country"],
+        "correct": "Our home",
+        "explanation": "The place where we sleep is called our home! 🏠"
+      },
+      {
+        "question": "What is a coast?",
+        "options": ["Where land meets the sea", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "Where land meets the sea",
+        "explanation": "A coast is where the land meets the sea! 🌊"
+      },
+      {
+        "question": "What color is usually used for cities on a map?",
+        "options": ["Blue", "Green", "Red", "Yellow"],
+        "correct": "Red",
+        "explanation": "Cities and towns are often shown in red on maps! 🏙️"
+      },
+      {
+        "question": "What is a plain?",
+        "options": ["A flat area of land", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A flat area of land",
+        "explanation": "A plain is a flat area of land with few hills! 🌾"
+      },
+      {
+        "question": "What do we call the place where we play?",
+        "options": ["Our home", "A playground", "Our school", "Our city"],
+        "correct": "A playground",
+        "explanation": "The place where we play is called a playground! 🎮"
+      },
+      {
+        "question": "What is a volcano?",
+        "options": ["A mountain that can erupt", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A mountain that can erupt",
+        "explanation": "A volcano is a mountain that can erupt with hot lava! 🌋"
+      },
+      {
+        "question": "What color is usually used for forests on a map?",
+        "options": ["Blue", "Green", "Red", "Yellow"],
+        "correct": "Green",
+        "explanation": "Forests are usually shown in green on maps! 🌲"
+      },
+      {
+        "question": "What is a cliff?",
+        "options": ["A steep rock face", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A steep rock face",
+        "explanation": "A cliff is a steep rock face, often by the sea! 🏔️"
+      },
+      {
+        "question": "What do we call the place where we work?",
+        "options": ["Our home", "Our school", "Our workplace", "Our city"],
+        "correct": "Our workplace",
+        "explanation": "The place where we work is called our workplace! 💼"
+      },
+      {
+        "question": "What is a bay?",
+        "options": ["A curved part of the coast", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "A curved part of the coast",
+        "explanation": "A bay is a curved part of the coast where the sea goes into the land! 🌊"
+      },
+      {
+        "question": "What color is usually used for mountains on a map?",
+        "options": ["Blue", "Green", "Brown", "Yellow"],
+        "correct": "Brown",
+        "explanation": "Mountains are usually shown in brown on maps! ⛰️"
+      },
+      {
+        "question": "What is a cave?",
+        "options": ["A hole in a rock", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A hole in a rock",
+        "explanation": "A cave is a hole in a rock where people or animals can go! 🕳️"
+      },
+      {
+        "question": "What do we call the place where we eat?",
+        "options": ["Our home", "A restaurant", "Our school", "Our city"],
+        "correct": "A restaurant",
+        "explanation": "The place where we eat out is called a restaurant! 🍽️"
+      },
+      {
+        "question": "What is a peninsula?",
+        "options": ["Land that sticks out into the sea", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "Land that sticks out into the sea",
+        "explanation": "A peninsula is land that sticks out into the sea! 🏝️"
+      },
+      {
+        "question": "What color is usually used for deserts on a map?",
+        "options": ["Blue", "Green", "Yellow", "Red"],
+        "correct": "Yellow",
+        "explanation": "Deserts are usually shown in yellow on maps! 🏜️"
+      },
+      {
+        "question": "What is a waterfall?",
+        "options": ["Water falling from high to low", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "Water falling from high to low",
+        "explanation": "A waterfall is water falling from a high place to a low place! 🌊"
+      },
+      {
+        "question": "What do we call the place where we exercise?",
+        "options": ["Our home", "A gym", "Our school", "Our city"],
+        "correct": "A gym",
+        "explanation": "The place where we exercise is called a gym! 💪"
+      },
+      {
+        "question": "What is a strait?",
+        "options": ["A narrow passage of water", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "A narrow passage of water",
+        "explanation": "A strait is a narrow passage of water between two pieces of land! 🌊"
+      },
+      {
+        "question": "What color is usually used for ice on a map?",
+        "options": ["Blue", "Green", "White", "Yellow"],
+        "correct": "White",
+        "explanation": "Ice and snow are usually shown in white on maps! ❄️"
+      },
+      {
+        "question": "What is a canyon?",
+        "options": ["A deep valley with steep sides", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A deep valley with steep sides",
+        "explanation": "A canyon is a deep valley with steep sides! 🏔️"
+      },
+      {
+        "question": "What do we call the place where we watch movies?",
+        "options": ["Our home", "A cinema", "Our school", "Our city"],
+        "correct": "A cinema",
+        "explanation": "The place where we watch movies is called a cinema! 🎬"
+      },
+      {
+        "question": "What is a gulf?",
+        "options": ["A large bay", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "A large bay",
+        "explanation": "A gulf is a large bay that goes deep into the land! 🌊"
+      },
+      {
+        "question": "What color is usually used for grasslands on a map?",
+        "options": ["Blue", "Green", "Yellow", "Red"],
+        "correct": "Green",
+        "explanation": "Grasslands are usually shown in green on maps! 🌾"
+      },
+      {
+        "question": "What is a mesa?",
+        "options": ["A flat-topped hill", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A flat-topped hill",
+        "explanation": "A mesa is a flat-topped hill with steep sides! ⛰️"
+      },
+      {
+        "question": "What do we call the place where we borrow books?",
+        "options": ["Our home", "A library", "Our school", "Our city"],
+        "correct": "A library",
+        "explanation": "The place where we borrow books is called a library! 📚"
+      },
+      {
+        "question": "What is a fjord?",
+        "options": ["A narrow sea inlet", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "A narrow sea inlet",
+        "explanation": "A fjord is a narrow sea inlet with steep sides! 🌊"
+      },
+      {
+        "question": "What color is usually used for swamps on a map?",
+        "options": ["Blue", "Green", "Yellow", "Red"],
+        "correct": "Green",
+        "explanation": "Swamps are usually shown in green on maps! 🌿"
+      },
+      {
+        "question": "What is a butte?",
+        "options": ["A small flat-topped hill", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A small flat-topped hill",
+        "explanation": "A butte is a small flat-topped hill! ⛰️"
+      },
+      {
+        "question": "What do we call the place where we see animals?",
+        "options": ["Our home", "A zoo", "Our school", "Our city"],
+        "correct": "A zoo",
+        "explanation": "The place where we see animals is called a zoo! 🦁"
+      },
+      {
+        "question": "What is a sound?",
+        "options": ["A wide sea passage", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "A wide sea passage",
+        "explanation": "A sound is a wide sea passage between islands! 🌊"
+      },
+      {
+        "question": "What color is usually used for tundra on a map?",
+        "options": ["Blue", "Green", "White", "Yellow"],
+        "correct": "White",
+        "explanation": "Tundra (cold areas) are usually shown in white on maps! ❄️"
+      },
+      {
+        "question": "What is a plateau?",
+        "options": ["A flat high area", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A flat high area",
+        "explanation": "A plateau is a flat high area of land! ⛰️"
+      },
+      {
+        "question": "What do we call the place where we swim?",
+        "options": ["Our home", "A swimming pool", "Our school", "Our city"],
+        "correct": "A swimming pool",
+        "explanation": "The place where we swim is called a swimming pool! 🏊"
+      },
+      {
+        "question": "What is a lagoon?",
+        "options": ["A shallow sea area", "A type of mountain", "A kind of road", "A type of building"],
+        "correct": "A shallow sea area",
+        "explanation": "A lagoon is a shallow sea area separated from the ocean! 🌊"
+      },
+      {
+        "question": "What color is usually used for savanna on a map?",
+        "options": ["Blue", "Green", "Yellow", "Red"],
+        "correct": "Yellow",
+        "explanation": "Savanna (grasslands) are usually shown in yellow on maps! 🌾"
+      },
+      {
+        "question": "What is a ridge?",
+        "options": ["A long narrow hill", "A type of building", "A kind of road", "A type of tree"],
+        "correct": "A long narrow hill",
+        "explanation": "A ridge is a long narrow hill or mountain range! ⛰️"
+      },
+      {
+        "question": "What do we call the place where we see art?",
+        "options": ["Our home", "A museum", "Our school", "Our city"],
+        "correct": "A museum",
+        "explanation": "The place where we see art is called a museum! 🎨"
+      }
+    ]
+  }
+} 

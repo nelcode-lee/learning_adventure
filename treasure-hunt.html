@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirate's Treasure Hunt - Learning Adventure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Adjust main container for fixed nav */
+        body {
+            padding-top: 60px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #8B4513;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .treasure-map-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .learning-journey {
+            background: linear-gradient(135deg, #87CEEB 0%, #98FB98 100%);
+            border: 3px solid #32CD32;
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            min-height: 600px;
+            background-image: 
+                radial-gradient(circle at 20% 20%, #FFB6C1 3px, transparent 3px),
+                radial-gradient(circle at 80% 30%, #DDA0DD 3px, transparent 3px),
+                radial-gradient(circle at 40% 70%, #98FB98 3px, transparent 3px),
+                radial-gradient(circle at 70% 80%, #F0E68C 3px, transparent 3px);
+        }
+
+        .journey-title {
+            text-align: center;
+            font-size: 2em;
+            color: #32CD32;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .learning-station {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: bold;
+            color: #32CD32;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            min-width: 120px;
+        }
+
+        .learning-station:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(255,105,180,0.8));
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .learning-station.completed {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            border: 3px solid #FFD700;
+        }
+
+        .learning-station.current {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%);
+            color: white;
+            border: 3px solid #FF6B6B;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .learning-station.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: rgba(200,200,200,0.9);
+        }
+
+        .journey-path {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .path-line {
+            stroke: #8B4513;
+            stroke-width: 3;
+            stroke-dasharray: 10,5;
+            fill: none;
+            animation: dash 2s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -15;
+            }
+        }
+
+        .progress-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #32CD32 0%, #98FB98 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .achievement-trophy {
+            position: absolute;
+            top: 15%;
+            left: 45%;
+            font-size: 3em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 10px rgba(255,215,0,0.5));
+        }
+
+        .achievement-trophy:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 20px rgba(255,215,0,0.8));
+        }
+
+        .achievement-trophy.locked {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .achievement-trophy.unlocked {
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .game-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .location-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .location-name {
+            font-size: 2em;
+            color: #8B4513;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .location-description {
+            font-size: 1.2em;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .question-area {
+            background: linear-gradient(135deg, #FFE4B5 0%, #F0E68C 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #DAA520;
+        }
+
+        .question {
+            font-size: 1.8em;
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .option.correct {
+            background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
+            animation: correct 0.6s ease;
+        }
+
+        .option.incorrect {
+            background: linear-gradient(135deg, #DC143C 0%, #FF4500 100%);
+            animation: incorrect 0.6s ease;
+        }
+
+        @keyframes correct {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrect {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .feedback {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 20px 0;
+            height: 30px;
+        }
+
+        .feedback.correct {
+            color: #228B22;
+        }
+
+        .feedback.incorrect {
+            color: #DC143C;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #FFD700, #DAA520);
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .stat {
+            background: linear-gradient(135deg, #F5DEB3 0%, #DEB887 100%);
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            min-width: 120px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #8B4513;
+            font-weight: bold;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            color: #2d3748;
+            font-weight: bold;
+        }
+
+        .completion-screen {
+            text-align: center;
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.3);
+        }
+
+        .treasure-celebration {
+            font-size: 6em;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+            
+            .learning-journey {
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <a href="home.html" class="nav-logo">🌟 Learning Adventure Journey</a>
+        <div class="nav-buttons">
+            <a href="home.html" class="nav-btn">🏠 Home</a>
+            <a href="reading-island.html" class="nav-btn">📚 Reading</a>
+            <a href="science-island.html" class="nav-btn">🔬 Science</a>
+            <a href="geography-island.html" class="nav-btn">🌍 Geography</a>
+            <a href="history-island.html" class="nav-btn">⏰ History</a>
+            <a href="art-island.html" class="nav-btn">🎨 Art</a>
+            <a href="index.html" class="nav-btn">🔢 Math</a>
+            <button class="nav-btn" onclick="showProgress()">📊 Progress</button>
+            <button class="nav-btn" onclick="showHelp()">❓ Help</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🌟 Learning Adventure Journey</h1>
+            <p>Explore exciting learning stations and collect knowledge badges!</p>
+            <p>Complete all stations to earn your special achievement trophy! 🏆</p>
+        </div>
+
+        <!-- Learning Journey -->
+        <div class="treasure-map-container">
+            <div class="learning-journey">
+                <div class="journey-title">Learning Adventure Map</div>
+                
+                <!-- Journey Path -->
+                <svg class="journey-path" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path class="path-line" d="M10,80 Q30,60 40,70 Q50,80 60,60 Q70,40 80,30 Q85,25 90,20" />
+                </svg>
+
+                <!-- Achievement Trophy -->
+                <div class="achievement-trophy locked" id="achievement-trophy" onclick="tryOpenTrophy()">🏆</div>
+
+                <!-- Learning Stations -->
+                <div class="learning-station" style="top: 15%; left: 10%;" onclick="visitLocation('math-station')">
+                    <div>🔢</div>
+                    <div>Math Station</div>
+                </div>
+
+                <div class="learning-station" style="top: 20%; left: 25%;" onclick="visitLocation('english-station')">
+                    <div>📚</div>
+                    <div>English Station</div>
+                </div>
+
+                <div class="learning-station" style="top: 70%; left: 15%;" onclick="visitLocation('science-station')">
+                    <div>🔬</div>
+                    <div>Science Station</div>
+                </div>
+
+                <div class="learning-station" style="top: 45%; left: 35%;" onclick="visitLocation('geography-station')">
+                    <div>🌍</div>
+                    <div>Geography Station</div>
+                </div>
+
+                <div class="learning-station" style="top: 80%; left: 45%;" onclick="visitLocation('history-station')">
+                    <div>⏰</div>
+                    <div>History Station</div>
+                </div>
+
+                <div class="learning-station" style="top: 75%; left: 60%;" onclick="visitLocation('art-station')">
+                    <div>🎨</div>
+                    <div>Art Station</div>
+                </div>
+
+                <div class="learning-station" style="top: 25%; left: 50%;" onclick="visitLocation('advanced-math')">
+                    <div>🧮</div>
+                    <div>Advanced Math</div>
+                </div>
+
+                <div class="learning-station" style="top: 40%; left: 65%;" onclick="visitLocation('science-lab')">
+                    <div>🧪</div>
+                    <div>Science Lab</div>
+                </div>
+
+                <div class="learning-station" style="top: 10%; left: 75%;" onclick="visitLocation('reading-corner')">
+                    <div>📖</div>
+                    <div>Reading Corner</div>
+                </div>
+
+                <div class="learning-station" style="top: 50%; left: 80%;" onclick="visitLocation('world-explorer')">
+                    <div>🗺️</div>
+                    <div>World Explorer</div>
+                </div>
+
+                <div class="learning-station" style="top: 85%; left: 85%;" onclick="visitLocation('time-traveler')">
+                    <div>⏳</div>
+                    <div>Time Traveler</div>
+                </div>
+
+                <!-- Progress Indicator -->
+                <div class="progress-indicator">📊</div>
+            </div>
+        </div>
+
+        <!-- Game Panel -->
+        <div class="game-panel" id="game-panel">
+            <div class="location-info">
+                <div class="location-name" id="location-name">Welcome to the Learning Adventure!</div>
+                <div class="location-description" id="location-description">Click on a learning station to start collecting knowledge badges!</div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-label">Stations Visited</div>
+                    <div class="stat-value" id="visited-count">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Badges Earned</div>
+                    <div class="stat-value" id="clues-found">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Current Station</div>
+                    <div class="stat-value" id="current-location">-</div>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress" style="width: 0%"></div>
+            </div>
+
+            <div class="question-area hidden" id="question-area">
+                <div class="question" id="question">Ready to earn your badge?</div>
+                <div class="options" id="options"></div>
+                <div class="feedback" id="feedback"></div>
+            </div>
+        </div>
+
+        <!-- Completion Screen -->
+        <div class="completion-screen hidden" id="completion-screen">
+            <div class="treasure-celebration">🏆</div>
+            <h2>🌟 Achievement Unlocked!</h2>
+            <p>Congratulations! You've successfully completed all learning stations and earned your special achievement trophy!</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-label">Total Stations</div>
+                    <div class="stat-value">11</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Badges Collected</div>
+                    <div class="stat-value" id="final-clues">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Subjects Mastered</div>
+                    <div class="stat-value" id="subjects-mastered">0</div>
+                </div>
+            </div>
+            <div>
+                <button class="option" onclick="restartHunt()">🔄 Start New Journey</button>
+                <button class="option" onclick="window.location.href='home.html'">🏠 Return Home</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentLocation = null;
+        let visitedLocations = [];
+        let cluesFound = 0;
+        let totalLocations = 11;
+        let currentQuestion = 0;
+        let questions = [];
+
+        // Reusable function to shuffle arrays (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        const locations = {
+            'math-station': {
+                name: 'Math Station',
+                description: 'A fun place to practice numbers and calculations!',
+                subject: 'math',
+                questions: [
+                    {
+                        question: 'What is 7 × 8?',
+                        options: ['54', '56', '58', '60'],
+                        correct: '56'
+                    },
+                    {
+                        question: 'What is 6 × 9?',
+                        options: ['54', '56', '58', '60'],
+                        correct: '54'
+                    }
+                ]
+            },
+            'english-station': {
+                name: 'English Station',
+                description: 'A cozy corner for reading and writing adventures!',
+                subject: 'english',
+                questions: [
+                    {
+                        question: 'Which word is a synonym for "happy"?',
+                        options: ['Sad', 'Joyful', 'Angry', 'Tired'],
+                        correct: 'Joyful'
+                    },
+                    {
+                        question: 'What is the past tense of "run"?',
+                        options: ['Running', 'Ran', 'Runs', 'Run'],
+                        correct: 'Ran'
+                    }
+                ]
+            },
+            'science-station': {
+                name: 'Science Station',
+                description: 'A laboratory full of exciting experiments and discoveries!',
+                subject: 'science',
+                questions: [
+                    {
+                        question: 'What is the largest planet in our solar system?',
+                        options: ['Earth', 'Mars', 'Jupiter', 'Saturn'],
+                        correct: 'Jupiter'
+                    },
+                    {
+                        question: 'What is the process by which plants make food?',
+                        options: ['Respiration', 'Photosynthesis', 'Digestion', 'Evaporation'],
+                        correct: 'Photosynthesis'
+                    }
+                ]
+            },
+            'geography-station': {
+                name: 'Geography Station',
+                description: 'A world map room to explore countries and places!',
+                subject: 'geography',
+                questions: [
+                    {
+                        question: 'What is the capital of England?',
+                        options: ['Manchester', 'Liverpool', 'London', 'Birmingham'],
+                        correct: 'London'
+                    },
+                    {
+                        question: 'Which ocean is the largest?',
+                        options: ['Atlantic', 'Pacific', 'Indian', 'Arctic'],
+                        correct: 'Pacific'
+                    }
+                ]
+            },
+            'history-station': {
+                name: 'History Station',
+                description: 'A time machine room to explore the past!',
+                subject: 'history',
+                questions: [
+                    {
+                        question: 'Who was the first Roman Emperor?',
+                        options: ['Julius Caesar', 'Augustus', 'Nero', 'Caligula'],
+                        correct: 'Augustus'
+                    },
+                    {
+                        question: 'In which year did World War II end?',
+                        options: ['1943', '1944', '1945', '1946'],
+                        correct: '1945'
+                    }
+                ]
+            },
+            'art-station': {
+                name: 'Art Station',
+                description: 'A creative studio full of colors and imagination!',
+                subject: 'art',
+                questions: [
+                    {
+                        question: 'Which color is made by mixing red and blue?',
+                        options: ['Green', 'Purple', 'Orange', 'Yellow'],
+                        correct: 'Purple'
+                    },
+                    {
+                        question: 'Who painted the Mona Lisa?',
+                        options: ['Van Gogh', 'Da Vinci', 'Picasso', 'Monet'],
+                        correct: 'Da Vinci'
+                    }
+                ]
+            },
+            'advanced-math': {
+                name: 'Advanced Math',
+                description: 'A challenging math zone for tricky calculations!',
+                subject: 'math',
+                questions: [
+                    {
+                        question: 'What is 12 × 12?',
+                        options: ['144', '132', '156', '168'],
+                        correct: '144'
+                    },
+                    {
+                        question: 'What is 8 × 7?',
+                        options: ['54', '56', '58', '60'],
+                        correct: '56'
+                    }
+                ]
+            },
+            'science-lab': {
+                name: 'Science Lab',
+                description: 'A chemistry lab with bubbling experiments!',
+                subject: 'science',
+                questions: [
+                    {
+                        question: 'What is the hardest natural substance?',
+                        options: ['Steel', 'Diamond', 'Granite', 'Iron'],
+                        correct: 'Diamond'
+                    },
+                    {
+                        question: 'What is the chemical symbol for gold?',
+                        options: ['Ag', 'Au', 'Fe', 'Cu'],
+                        correct: 'Au'
+                    }
+                ]
+            },
+            'reading-corner': {
+                name: 'Reading Corner',
+                description: 'A quiet library corner for word adventures!',
+                subject: 'english',
+                questions: [
+                    {
+                        question: 'What is a group of lions called?',
+                        options: ['Herd', 'Pack', 'Pride', 'Flock'],
+                        correct: 'Pride'
+                    },
+                    {
+                        question: 'Which word means the opposite of "big"?',
+                        options: ['Large', 'Huge', 'Small', 'Giant'],
+                        correct: 'Small'
+                    }
+                ]
+            },
+            'world-explorer': {
+                name: 'World Explorer',
+                description: 'A globe room to discover amazing places!',
+                subject: 'geography',
+                questions: [
+                    {
+                        question: 'What is the largest desert in the world?',
+                        options: ['Sahara', 'Antarctic', 'Arabian', 'Gobi'],
+                        correct: 'Antarctic'
+                    },
+                    {
+                        question: 'Which country is home to the Great Wall?',
+                        options: ['Japan', 'China', 'Korea', 'Vietnam'],
+                        correct: 'China'
+                    }
+                ]
+            },
+            'time-traveler': {
+                name: 'Time Traveler',
+                description: 'A time portal to explore historical events!',
+                subject: 'history',
+                questions: [
+                    {
+                        question: 'Who was the first President of the United States?',
+                        options: ['John Adams', 'Thomas Jefferson', 'George Washington', 'Benjamin Franklin'],
+                        correct: 'George Washington'
+                    },
+                    {
+                        question: 'In which year did Columbus discover America?',
+                        options: ['1490', '1492', '1495', '1500'],
+                        correct: '1492'
+                    }
+                ]
+            }
+        };
+
+        function visitLocation(locationId) {
+            if (visitedLocations.includes(locationId)) {
+                alert('You\'ve already visited this location! Try another one.');
+                return;
+            }
+
+            currentLocation = locationId;
+            const location = locations[locationId];
+            
+            document.getElementById('location-name').textContent = location.name;
+            document.getElementById('location-description').textContent = location.description;
+            document.getElementById('current-location').textContent = location.name;
+            
+            // Update location styling
+            updateLocationStyles();
+            
+            // Start the question sequence
+            questions = location.questions;
+            currentQuestion = 0;
+            displayQuestion();
+            
+            document.getElementById('question-area').classList.remove('hidden');
+        }
+
+        function updateLocationStyles() {
+            // Reset all locations
+            document.querySelectorAll('.location').forEach(loc => {
+                loc.classList.remove('current', 'completed');
+            });
+            
+            // Mark current location
+            if (currentLocation) {
+                const currentElement = document.querySelector(`[onclick="visitLocation('${currentLocation}')"]`);
+                if (currentElement) {
+                    currentElement.classList.add('current');
+                }
+            }
+            
+            // Mark completed locations
+            visitedLocations.forEach(locId => {
+                const element = document.querySelector(`[onclick="visitLocation('${locId}')"]`);
+                if (element) {
+                    element.classList.add('completed');
+                }
+            });
+        }
+
+        function displayQuestion() {
+            if (currentQuestion >= questions.length) {
+                completeLocation();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            document.getElementById('question').textContent = q.question;
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            // Always shuffle options to randomize correct answer position
+            const shuffledOptions = shuffleArray([...q.options]);
+            
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = option;
+                button.onclick = () => selectAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('feedback').textContent = '';
+        }
+
+        function selectAnswer(answer) {
+            const correct = questions[currentQuestion].correct;
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(option => {
+                option.disabled = true;
+                if (option.textContent === answer) {
+                    if (answer === correct) {
+                        option.classList.add('correct');
+                        document.getElementById('feedback').textContent = 'Correct! 🌟';
+                        document.getElementById('feedback').className = 'feedback correct';
+                    } else {
+                        option.classList.add('incorrect');
+                        document.getElementById('feedback').textContent = 'Try again! 💪';
+                        document.getElementById('feedback').className = 'feedback incorrect';
+                    }
+                }
+            });
+
+            setTimeout(() => {
+                currentQuestion++;
+                displayQuestion();
+                document.getElementById('feedback').textContent = '';
+            }, 1500);
+        }
+
+        function completeLocation() {
+            visitedLocations.push(currentLocation);
+            cluesFound += 2; // 2 badges per station
+            
+            updateStats();
+            updateLocationStyles();
+            
+            document.getElementById('question-area').classList.add('hidden');
+            document.getElementById('location-name').textContent = 'Station Completed!';
+            document.getElementById('location-description').textContent = `You earned ${cluesFound} badges so far! Visit another station to continue your journey.`;
+            
+            // Check if all stations are visited
+            if (visitedLocations.length >= totalLocations) {
+                unlockTrophy();
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('visited-count').textContent = visitedLocations.length;
+            document.getElementById('clues-found').textContent = cluesFound;
+            document.getElementById('progress').style.width = (visitedLocations.length / totalLocations) * 100 + '%';
+        }
+
+        function unlockTrophy() {
+            document.getElementById('achievement-trophy').classList.remove('locked');
+            document.getElementById('achievement-trophy').classList.add('unlocked');
+            alert('🏆 All stations completed! The achievement trophy is now unlocked! Click the trophy to claim your prize!');
+        }
+
+        function tryOpenTrophy() {
+            if (visitedLocations.length >= totalLocations) {
+                showCompletion();
+            } else {
+                alert('You need to complete all stations first! You\'ve completed ' + visitedLocations.length + ' out of ' + totalLocations + ' stations.');
+            }
+        }
+
+        function showCompletion() {
+            document.getElementById('game-panel').classList.add('hidden');
+            document.getElementById('completion-screen').classList.remove('hidden');
+            document.getElementById('final-clues').textContent = cluesFound;
+            document.getElementById('subjects-mastered').textContent = Object.keys(locations).length;
+        }
+
+        function restartHunt() {
+            visitedLocations = [];
+            cluesFound = 0;
+            currentLocation = null;
+            currentQuestion = 0;
+            
+            document.getElementById('completion-screen').classList.add('hidden');
+            document.getElementById('game-panel').classList.remove('hidden');
+            document.getElementById('question-area').classList.add('hidden');
+            
+            document.getElementById('location-name').textContent = 'Welcome to the Learning Adventure!';
+            document.getElementById('location-description').textContent = 'Click on a learning station to start collecting knowledge badges!';
+            document.getElementById('current-location').textContent = '-';
+            
+            updateStats();
+            updateLocationStyles();
+            
+            document.getElementById('achievement-trophy').classList.add('locked');
+            document.getElementById('achievement-trophy').classList.remove('unlocked');
+        }
+
+        function showProgress() {
+            const agreement = JSON.parse(localStorage.getItem('learningAgreement') || '{}');
+            
+            let progressMessage = `📊 Learning Journey Progress\n\n`;
+            progressMessage += `Child: ${agreement.childName || 'Learner'}\n`;
+            progressMessage += `Stations Completed: ${visitedLocations.length}/${totalLocations}\n`;
+            progressMessage += `Badges Earned: ${cluesFound}\n`;
+            progressMessage += `Progress: ${Math.round((visitedLocations.length / totalLocations) * 100)}%\n\n`;
+            
+            if (visitedLocations.length > 0) {
+                progressMessage += `✅ Completed Stations:\n`;
+                visitedLocations.forEach(locId => {
+                    progressMessage += `• ${locations[locId].name}\n`;
+                });
+            }
+            
+            progressMessage += `\n🌟 Journey Status: ${visitedLocations.length >= totalLocations ? '🏆 Trophy Unlocked!' : '⏳ Still Learning...'}\n`;
+            progressMessage += `\nKeep learning! The achievement trophy awaits! 🌟`;
+            
+            alert(progressMessage);
+        }
+
+        function showHelp() {
+            let helpMessage = `❓ Learning Adventure Journey Help\n\n`;
+            helpMessage += `🌟 How to Play:\n\n`;
+            helpMessage += `1. 🗺️ Explore the Learning Map\n`;
+            helpMessage += `   • Click on any station to visit\n`;
+            helpMessage += `   • Each station has subject-specific questions\n`;
+            helpMessage += `   • Answer correctly to earn badges\n\n`;
+            helpMessage += `2. 🎯 Answer Questions\n`;
+            helpMessage += `   • Math: Times tables and calculations\n`;
+            helpMessage += `   • English: Vocabulary and grammar\n`;
+            helpMessage += `   • Science: Natural world facts\n`;
+            helpMessage += `   • Geography: World knowledge\n`;
+            helpMessage += `   • History: Historical events\n`;
+            helpMessage += `   • Art: Creative concepts\n\n`;
+            helpMessage += `3. 🏆 Earn the Trophy\n`;
+            helpMessage += `   • Complete all 11 stations\n`;
+            helpMessage += `   • Collect all badges\n`;
+            helpMessage += `   • Unlock the achievement trophy\n\n`;
+            helpMessage += `4. 📊 Track Progress\n`;
+            helpMessage += `   • Use the progress bar\n`;
+            helpMessage += `   • Check stats regularly\n`;
+            helpMessage += `   • Monitor completed stations\n\n`;
+            helpMessage += `🗺️ Map Features:\n`;
+            helpMessage += `• Red station = Current station\n`;
+            helpMessage += `• Gold station = Completed station\n`;
+            helpMessage += `• Dashed line = Learning path\n`;
+            helpMessage += `• Trophy = Ultimate goal\n\n`;
+            helpMessage += `Have fun learning! Good luck on your journey! 🌟`;
+            
+            alert(helpMessage);
+        }
+
+        // Initialize the game
+        updateStats();
+        updateLocationStyles();
+    </script>
+</body>
+</html> 

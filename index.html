@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Times Tables Adventure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .name-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px 20px;
+            font-size: 1.3em;
+            border: 3px solid #667eea;
+            border-radius: 25px;
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .start-adventure-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 25px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .start-adventure-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .times-table-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .table-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .table-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .table-btn.completed {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            position: relative;
+        }
+
+        .table-btn.completed::after {
+            content: '✅';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 1.2em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .stat {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            min-width: 120px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #2d3748;
+            font-weight: bold;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            color: #4a5568;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #48bb78, #38a169);
+            height: 100%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .question {
+            font-size: 3em;
+            color: #2d3748;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .option.correct {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            animation: correct 0.6s ease;
+        }
+
+        .option.incorrect {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+            animation: incorrect 0.6s ease;
+        }
+
+        @keyframes correct {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes incorrect {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .feedback {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 20px 0;
+            height: 30px;
+        }
+
+        .feedback.correct {
+            color: #38a169;
+        }
+
+        .feedback.incorrect {
+            color: #e53e3e;
+        }
+
+        .streak-display {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 10px 0;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .journey-progress {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .journey-level {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #8b4513;
+            margin-bottom: 10px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Adjust main container for fixed nav */
+        body {
+            padding-top: 60px;
+        }
+
+        .breadcrumb {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #8b4513;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .completion-screen {
+            text-align: center;
+        }
+
+        .trophy {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .restart-btn, .menu-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+
+        @media (max-width: 600px) {
+            .times-table-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <a href="home.html" class="nav-logo">🏴‍☠️ Learning Adventure</a>
+        <div class="nav-buttons">
+            <a href="home.html" class="nav-btn">🏠 Home</a>
+            <button class="nav-btn" onclick="showProgress()">📊 Progress</button>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <div id="name-screen">
+            <div class="breadcrumb">
+                <a href="home.html">🏠 Home</a> > 🚀 Times Tables Adventure
+            </div>
+            <h1>🚀 Times Tables Adventure</h1>
+            <p class="subtitle">Welcome, young mathematician!</p>
+            <input type="text" id="child-name" class="name-input" placeholder="Enter your name here..." maxlength="20">
+            <button class="start-adventure-btn" onclick="enterAdventure()">Start My Adventure! 🎯</button>
+        </div>
+
+        <div id="menu-screen" class="hidden">
+            <div class="breadcrumb">
+                <a href="home.html">🏠 Home</a> > 🚀 Times Tables Adventure > 📚 Choose Table
+            </div>
+            <h1>🚀 Times Tables Adventure</h1>
+            <p class="subtitle">Master your multiplication tables!</p>
+            
+            <div class="journey-progress">
+                <div class="journey-level">Journey Progress: Level <span id="journey-level">1</span></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="journey-progress" style="width: 0%"></div>
+                </div>
+                <p>Completed Tables: <span id="completed-tables">0</span>/12</p>
+            </div>
+            
+            <div class="times-table-grid">
+                <button class="table-btn" onclick="startGame(1)" id="table-1">1× Table</button>
+                <button class="table-btn" onclick="startGame(2)" id="table-2">2× Table</button>
+                <button class="table-btn" onclick="startGame(3)" id="table-3">3× Table</button>
+                <button class="table-btn" onclick="startGame(4)" id="table-4">4× Table</button>
+                <button class="table-btn" onclick="startGame(5)" id="table-5">5× Table</button>
+                <button class="table-btn" onclick="startGame(6)" id="table-6">6× Table</button>
+                <button class="table-btn" onclick="startGame(7)" id="table-7">7× Table</button>
+                <button class="table-btn" onclick="startGame(8)" id="table-8">8× Table</button>
+                <button class="table-btn" onclick="startGame(9)" id="table-9">9× Table</button>
+                <button class="table-btn" onclick="startGame(10)" id="table-10">10× Table</button>
+                <button class="table-btn" onclick="startGame(11)" id="table-11">11× Table</button>
+                <button class="table-btn" onclick="startGame(12)" id="table-12">12× Table</button>
+            </div>
+        </div>
+
+        <div id="game-screen" class="hidden">
+            <div class="breadcrumb">
+                <a href="home.html">🏠 Home</a> > <a href="#" onclick="backToMenu()">🚀 Times Tables Adventure</a> > 🎮 Playing
+            </div>
+            <h2 id="current-table">4× Times Table</h2>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-label">Score</div>
+                    <div class="stat-value" id="score">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Question</div>
+                    <div class="stat-value"><span id="current-q">1</span>/10</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Streak</div>
+                    <div class="stat-value" id="streak">0</div>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress" style="width: 10%"></div>
+            </div>
+
+            <div class="question" id="question">4 × 3 = ?</div>
+            <div class="options" id="options"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <button onclick="backToMenu()">Back to Menu</button>
+        </div>
+
+        <div id="completion-screen" class="hidden">
+            <div class="breadcrumb">
+                <a href="home.html">🏠 Home</a> > <a href="#" onclick="backToMenu()">🚀 Times Tables Adventure</a> > 🏆 Completion
+            </div>
+            <div class="completion-screen">
+                <div class="trophy">🏆</div>
+                <h2>Fantastic Work!</h2>
+                <p>You've completed the <span id="completed-table">times table</span> challenge!</p>
+                <div class="journey-progress">
+                    <h3>Final Score: <span id="final-score">0</span>/100</h3>
+                    <h3>Correct Answers: <span id="correct-count">0</span>/10</h3>
+                    <h3>Best Streak: <span id="best-streak">0</span> 🔥</h3>
+                </div>
+                <div>
+                    <button class="restart-btn" onclick="restartGame()">Play Again! 🎮</button>
+                    <button class="menu-btn" onclick="backToMenu()">Choose New Table 📚</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let score = 0;
+        let streak = 0;
+        let bestStreak = 0;
+        let correctAnswers = 0;
+        let questions = [];
+        let currentTable = 4;
+        let childName = 'Champion';
+        let completedTables = JSON.parse(localStorage.getItem('completedTables') || '[]');
+        let totalScore = parseInt(localStorage.getItem('totalScore') || '0');
+
+        // Reusable function to shuffle arrays (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        const encouragingMessages = [
+            "Brilliant! 🌟", "Amazing work! 🎉", "You're a star! ⭐", 
+            "Fantastic! 🚀", "Well done! 👏", "Excellent! 💫",
+            "Super! 🦸‍♂️", "Wonderful! 🎊", "Great job! 🎈"
+        ];
+
+        const tryAgainMessages = [
+            "Almost there! 💪", "Keep trying! 🌈", "You can do it! 🎯",
+            "Don't give up! 🦋", "Nearly got it! 🌸", "Good effort! 🍀"
+        ];
+
+        function enterAdventure() {
+            const nameInput = document.getElementById('child-name');
+            const enteredName = nameInput.value.trim();
+            
+            if (enteredName.length === 0) {
+                nameInput.style.borderColor = '#f56565';
+                nameInput.placeholder = 'Please enter your name first!';
+                return;
+            }
+            
+            childName = enteredName;
+            showMenuScreen();
+            updateJourneyProgress();
+        }
+
+        function showMenuScreen() {
+            document.getElementById('name-screen').classList.add('hidden');
+            document.getElementById('menu-screen').classList.remove('hidden');
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('completion-screen').classList.add('hidden');
+            updateJourneyProgress();
+        }
+
+        function updateJourneyProgress() {
+            const journeyLevel = Math.floor(completedTables.length / 3) + 1;
+            const progressPercent = (completedTables.length % 3) * 33.33;
+            
+            document.getElementById('journey-level').textContent = journeyLevel;
+            document.getElementById('journey-progress').style.width = progressPercent + '%';
+            document.getElementById('completed-tables').textContent = completedTables.length;
+            
+            // Update completed table buttons
+            for (let i = 1; i <= 12; i++) {
+                const btn = document.getElementById(`table-${i}`);
+                if (completedTables.includes(i)) {
+                    btn.classList.add('completed');
+                } else {
+                    btn.classList.remove('completed');
+                }
+            }
+        }
+
+        function startGame(table) {
+            currentTable = table;
+            currentQuestion = 0;
+            score = 0;
+            streak = 0;
+            correctAnswers = 0;
+            
+            document.getElementById('current-table').textContent = `${table}× Times Table`;
+            generateQuestions();
+            showGameScreen();
+            displayQuestion();
+            updateStats();
+        }
+
+        function generateQuestions() {
+            questions = [];
+            const usedQuestions = new Set();
+            
+            while (questions.length < 10) {
+                const multiplier = Math.floor(Math.random() * 12) + 1;
+                const questionKey = `${currentTable}x${multiplier}`;
+                
+                if (!usedQuestions.has(questionKey)) {
+                    usedQuestions.add(questionKey);
+                    const correctAnswer = currentTable * multiplier;
+                    const wrongAnswers = generateWrongAnswers(correctAnswer);
+                    const allAnswers = [correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+                    
+                    questions.push({
+                        question: `${currentTable} × ${multiplier} = ?`,
+                        answers: allAnswers,
+                        correct: correctAnswer
+                    });
+                }
+            }
+        }
+
+        function generateWrongAnswers(correct) {
+            const wrong = new Set();
+            while (wrong.size < 3) {
+                let wrongAnswer = correct + (Math.floor(Math.random() * 20) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                if (wrongAnswer !== correct && wrongAnswer > 0) {
+                    wrong.add(wrongAnswer);
+                }
+            }
+            return Array.from(wrong);
+        }
+
+        function showGameScreen() {
+            document.getElementById('name-screen').classList.add('hidden');
+            document.getElementById('menu-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+            document.getElementById('completion-screen').classList.add('hidden');
+        }
+
+        function displayQuestion() {
+            if (currentQuestion >= questions.length) {
+                showCompletion();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            document.getElementById('question').textContent = q.question;
+            document.getElementById('current-q').textContent = currentQuestion + 1;
+            document.getElementById('progress').style.width = ((currentQuestion + 1) / 10) * 100 + '%';
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            // Always shuffle answers to randomize correct answer position
+            const shuffledAnswers = shuffleArray([...q.answers]);
+            
+            shuffledAnswers.forEach(answer => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = answer;
+                button.onclick = () => selectAnswer(answer);
+                optionsContainer.appendChild(button);
+            });
+
+            document.getElementById('feedback').textContent = '';
+        }
+
+        function selectAnswer(answer) {
+            const correct = questions[currentQuestion].correct;
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(option => {
+                option.disabled = true;
+                if (parseInt(option.textContent) === answer) {
+                    if (answer === correct) {
+                        option.classList.add('correct');
+                        correctAnswers++;
+                        score += 10 + streak * 2; // Bonus points for streaks
+                        streak++;
+                        if (streak > bestStreak) bestStreak = streak;
+                        document.getElementById('feedback').textContent = encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
+                        document.getElementById('feedback').className = 'feedback correct';
+                    } else {
+                        option.classList.add('incorrect');
+                        streak = 0;
+                        document.getElementById('feedback').textContent = tryAgainMessages[Math.floor(Math.random() * tryAgainMessages.length)];
+                        document.getElementById('feedback').className = 'feedback incorrect';
+                    }
+                }
+            });
+
+            updateStats();
+
+            setTimeout(() => {
+                currentQuestion++;
+                displayQuestion();
+                document.getElementById('feedback').textContent = '';
+            }, 1500);
+        }
+
+        function updateStats() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = streak;
+        }
+
+        function showCompletion() {
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('completion-screen').classList.remove('hidden');
+            
+            // Update completion stats
+            document.getElementById('completed-table').textContent = `${currentTable}× times table`;
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('correct-count').textContent = correctAnswers;
+            document.getElementById('best-streak').textContent = bestStreak;
+            
+            // Save progress if completed with good score
+            if (correctAnswers >= 8 && !completedTables.includes(currentTable)) {
+                completedTables.push(currentTable);
+                localStorage.setItem('completedTables', JSON.stringify(completedTables));
+                totalScore += score;
+                localStorage.setItem('totalScore', totalScore.toString());
+            }
+        }
+
+        function restartGame() {
+            startGame(currentTable);
+        }
+
+        function backToMenu() {
+            showMenuScreen();
+        }
+
+        function showProgress() {
+            const agreement = JSON.parse(localStorage.getItem('learningAgreement') || '{}');
+            const completedTables = JSON.parse(localStorage.getItem('completedTables') || '[]');
+            
+            let progressMessage = `📊 Times Tables Progress Report\n\n`;
+            progressMessage += `Child: ${agreement.childName || childName}\n`;
+            progressMessage += `Completed Tables: ${completedTables.length}/12\n`;
+            progressMessage += `Current Table: ${currentTable}×\n`;
+            progressMessage += `Current Score: ${score}\n`;
+            progressMessage += `Best Streak: ${bestStreak}\n\n`;
+            
+            if (completedTables.length > 0) {
+                progressMessage += `✅ Completed: ${completedTables.join('×, ')}× tables\n`;
+            }
+            
+            progressMessage += `\nKeep going! You're doing great! 🌟`;
+            
+            alert(progressMessage);
+        }
+
+        // Enable Enter key on name input
+        document.addEventListener('DOMContentLoaded', function() {
+            const nameInput = document.getElementById('child-name');
+            nameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    enterAdventure();
+                }
+            });
+            nameInput.focus();
+        });
+    </script>
+</body>
+</html>
