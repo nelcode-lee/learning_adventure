@@ -189,13 +189,26 @@
             
             <div class="form-group">
                 <label for="agreedReward">Agreed Reward:</label>
-                <input type="text" id="agreedReward" name="agreedReward" placeholder="e.g., Extra screen time, special treat, etc." required>
+                <input type="text" id="agreedReward" name="agreedReward" placeholder="e.g., £2 pocket money, extra screen time, special treat" required>
                 <div class="error-message" id="rewardError">Please enter an agreed reward</div>
+                <div class="info-text" style="font-size: 0.8em; margin-top: 5px; color: #666;">
+                    💡 Tip: You can use symbols like £, €, $ for money rewards
+                </div>
             </div>
             
             <button type="submit" class="start-adventure-btn">
                 🚀 Start Learning Adventure!
             </button>
+            
+            <button type="button" onclick="testPoundSymbol()" style="
+                background: #f39c12;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 10px;
+                margin-top: 10px;
+                cursor: pointer;
+            ">Test £ Symbol</button>
         </form>
         
         <p class="info-text">
@@ -307,7 +320,19 @@
                 if (this.value.trim().length >= 3) {
                     error.style.display = 'none';
                 }
+                
+                // Log the input to help debug character issues
+                console.log('Reward input:', this.value);
+                console.log('Character codes:', Array.from(this.value).map(c => c.charCodeAt(0)));
             });
+            
+            // Test function for pound symbol
+            window.testPoundSymbol = function() {
+                const rewardInput = document.getElementById('agreedReward');
+                rewardInput.value = '£2 pocket money';
+                console.log('Test: Added £2 to input field');
+                alert('Test: Added £2 to the reward field. Check if it appears correctly.');
+            };
         });
     </script>
 </body>

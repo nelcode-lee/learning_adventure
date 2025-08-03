@@ -635,8 +635,7 @@
             }
         }
 
-        // Call this when page loads
-        loadChildAge();
+        // This will be called by DOMContentLoaded event
 
         // Reusable function to shuffle arrays (Fisher-Yates algorithm)
         function shuffleArray(array) {
@@ -668,103 +667,103 @@
                 questionsAge7: [
                     {
                         type: 'word',
-                        word: 'happy',
-                        question: 'What does "happy" mean?',
-                        options: ['Sad', 'Happy', 'Angry', 'Tired'],
-                        correct: 'Happy',
-                        explanation: 'Happy means feeling good and cheerful! 😊'
+                        word: 'through',
+                        question: 'How do you pronounce "through"?',
+                        options: ['th-roo', 'th-rough', 'th-rew', 'th-row'],
+                        correct: 'th-roo',
+                        explanation: 'Through is pronounced "th-roo" - it\'s a tricky exception word!'
                     },
                     {
                         type: 'word',
-                        word: 'big',
-                        question: 'What is the opposite of "big"?',
-                        options: ['Small', 'Large', 'Huge', 'Giant'],
-                        correct: 'Small',
-                        explanation: 'Big means large, so the opposite is small!'
+                        word: 'enough',
+                        question: 'How do you pronounce "enough"?',
+                        options: ['en-ough', 'en-uff', 'en-ow', 'en-ew'],
+                        correct: 'en-uff',
+                        explanation: 'Enough is pronounced "en-uff" - another exception word!'
                     },
                     {
                         type: 'passage',
-                        passage: 'The little cat sat on the soft mat. It was very happy.',
-                        question: 'What was the cat sitting on?',
-                        options: ['A chair', 'A soft mat', 'A table', 'A bed'],
-                        correct: 'A soft mat',
-                        explanation: 'The cat was sitting on a soft mat! 🐱'
+                        passage: 'The knight fought bravely against the fierce dragon. His sword gleamed in the sunlight.',
+                        question: 'What does "fierce" mean in this sentence?',
+                        options: ['Friendly and kind', 'Wild and dangerous', 'Small and weak', 'Slow and gentle'],
+                        correct: 'Wild and dangerous',
+                        explanation: 'Fierce means aggressive and dangerous, often used to describe wild animals.'
                     },
                     {
                         type: 'word',
-                        word: 'run',
-                        question: 'How do you say "run"?',
-                        options: ['run', 'ran', 'running', 'runs'],
-                        correct: 'run',
-                        explanation: 'Run is pronounced just like it looks - "run"!'
+                        word: 'brought',
+                        question: 'How do you pronounce "brought"?',
+                        options: ['brought', 'brawt', 'broot', 'browt'],
+                        correct: 'brought',
+                        explanation: 'Brought is pronounced as it looks - "brought" - it\'s the past tense of bring.'
                     },
                     {
                         type: 'passage',
-                        passage: 'The red ball bounced high in the sky. It was fun to play with.',
-                        question: 'What color was the ball?',
-                        options: ['Blue', 'Red', 'Green', 'Yellow'],
-                        correct: 'Red',
-                        explanation: 'The ball was red! 🔴'
+                        passage: 'The ancient castle was surrounded by a moat filled with murky water.',
+                        question: 'What does "murky" mean?',
+                        options: ['Clear and clean', 'Dark and unclear', 'Warm and pleasant', 'Deep and wide'],
+                        correct: 'Dark and unclear',
+                        explanation: 'Murky means dark and unclear, often used to describe dirty or cloudy water.'
                     }
                 ],
                 questionsAge8: [
                     {
                         type: 'word',
-                        word: 'beautiful',
-                        question: 'What does "beautiful" mean?',
-                        options: ['Ugly', 'Beautiful', 'Small', 'Big'],
-                        correct: 'Beautiful',
-                        explanation: 'Beautiful means very pretty and nice to look at! ✨'
+                        word: 'though',
+                        question: 'How do you pronounce "though"?',
+                        options: ['th-ough', 'th-ow', 'th-oo', 'th-ew'],
+                        correct: 'th-ow',
+                        explanation: 'Though is pronounced "th-ow" - another example of "ough" having an unusual sound.'
                     },
                     {
                         type: 'word',
-                        word: 'quick',
-                        question: 'What does "quick" mean?',
-                        options: ['Slow', 'Quick', 'Big', 'Small'],
-                        correct: 'Quick',
-                        explanation: 'Quick means fast - like running quickly! 🏃‍♂️'
+                        word: 'fortress',
+                        question: 'What is a "fortress"?',
+                        options: ['A small house', 'A strong castle', 'A garden', 'A bridge'],
+                        correct: 'A strong castle',
+                        explanation: 'A fortress is a strong building designed to protect people from attack, like a castle.'
                     },
                     {
                         type: 'passage',
-                        passage: 'The friendly dog played in the garden. It wagged its tail happily.',
-                        question: 'What did the dog do with its tail?',
-                        options: ['It wagged its tail', 'It hid its tail', 'It bit its tail', 'It lost its tail'],
-                        correct: 'It wagged its tail',
-                        explanation: 'The dog wagged its tail happily! 🐕'
+                        passage: 'The children were delighted when they discovered a hidden treasure chest. Their excitement was contagious.',
+                        question: 'What does "contagious" mean here?',
+                        options: ['A disease', 'Spreading quickly', 'Very expensive', 'Hidden away'],
+                        correct: 'Spreading quickly',
+                        explanation: 'Contagious means spreading from one person to another, like excitement or laughter.'
                     },
                     {
                         type: 'word',
-                        word: 'through',
-                        question: 'How do you pronounce "through"?',
-                        options: ['th-roo', 'th-rough', 'th-rew', 'th-row'],
-                        correct: 'th-roo',
-                        explanation: 'Through is pronounced "th-roo" - it\'s a tricky word!'
+                        word: 'celestial',
+                        question: 'What does "celestial" mean?',
+                        options: ['Very bright', 'Relating to space', 'Very old', 'Very large'],
+                        correct: 'Relating to space',
+                        explanation: 'Celestial means relating to the sky or outer space, often used to describe stars and planets.'
                     },
                     {
                         type: 'passage',
-                        passage: 'The bright sun shone in the clear blue sky. It was a lovely day.',
-                        question: 'What color was the sky?',
-                        options: ['Gray', 'Blue', 'Green', 'Red'],
-                        correct: 'Blue',
-                        explanation: 'The sky was blue! 🌤️'
+                        passage: 'The astronomer peered through his telescope at the distant galaxy. The celestial bodies twinkled like diamonds.',
+                        question: 'What does "determined" mean in this context?',
+                        options: ['Confused and unsure', 'Strong-willed and focused', 'Tired and sleepy', 'Happy and excited'],
+                        correct: 'Strong-willed and focused',
+                        explanation: 'Determined means having a strong will to achieve something, not giving up easily.'
                     }
                 ],
                 questionsAge9: [
                     {
                         type: 'word',
-                        word: 'magnificent',
-                        question: 'What does "magnificent" mean?',
-                        options: ['Small and weak', 'Large and impressive', 'Quiet and shy', 'Fast and quick'],
-                        correct: 'Large and impressive',
-                        explanation: 'Magnificent means very large and impressive, like a grand castle!'
+                        word: 'velvet',
+                        question: 'What does "velvet" describe?',
+                        options: ['A type of fabric', 'A color', 'A sound', 'A smell'],
+                        correct: 'A type of fabric',
+                        explanation: 'Velvet is a soft, smooth fabric with a thick pile, often used for clothing or furniture.'
                     },
                     {
                         type: 'word',
-                        word: 'iridescent',
-                        question: 'What does "iridescent" mean?',
-                        options: ['Shiny and colorful', 'Dark and dull', 'Soft and smooth', 'Hard and rough'],
-                        correct: 'Shiny and colorful',
-                        explanation: 'Iridescent means showing colors that change, like a rainbow! 🌈'
+                        word: 'mesmerized',
+                        question: 'What does "mesmerized" mean?',
+                        options: ['Bored and tired', 'Fascinated and spellbound', 'Angry and upset', 'Confused and lost'],
+                        correct: 'Fascinated and spellbound',
+                        explanation: 'Mesmerized means completely fascinated and unable to look away, like being under a spell.'
                     },
                     {
                         type: 'passage',
@@ -930,128 +929,6 @@
                         correct: 'Strong-willed and focused',
                         explanation: 'Determined means having a strong will to achieve something, not giving up easily.'
                     },
-                    {
-                        type: 'word',
-                        word: 'though',
-                        question: 'How do you pronounce "though"?',
-                        options: ['th-ough', 'th-ow', 'th-oo', 'th-ew'],
-                        correct: 'th-ow',
-                        explanation: 'Though is pronounced like "th-ow" - another example of "ough" having an unusual sound.'
-                    },
-                    {
-                        type: 'passage',
-                        passage: 'The artist created a masterpiece that captivated everyone who saw it. The painting was so beautiful that visitors would stand for hours, mesmerized by its beauty.',
-                        question: 'What does "mesmerized" mean?',
-                        options: ['Bored and tired', 'Fascinated and spellbound', 'Angry and upset', 'Confused and lost'],
-                        correct: 'Fascinated and spellbound',
-                        explanation: 'Mesmerized means completely fascinated and unable to look away, like being under a spell.'
-                    },
-                    {
-                        type: 'word',
-                        word: 'brought',
-                        question: 'How do you pronounce "brought"?',
-                        options: ['brought', 'brawt', 'broot', 'browt'],
-                        correct: 'brought',
-                        explanation: 'Brought is the past tense of "bring" and is pronounced as it looks - another exception word.'
-                    }
-                ]
-            },
-            {
-                type: 'word',
-                word: 'iridescent',
-                question: 'What does "iridescent" mean?',
-                options: ['Shiny and colorful', 'Dark and dull', 'Soft and smooth', 'Hard and rough'],
-                correct: 'Shiny and colorful',
-                explanation: 'Iridescent means showing colors that change when viewed from different angles, like a rainbow.'
-                    },
-                    {
-                        type: 'passage',
-                        passage: 'The curious scientist conducted an experiment in her laboratory. She carefully observed the chemical reaction, taking detailed notes about the fascinating results.',
-                        question: 'What does "curious" mean in this context?',
-                        options: ['Boring and dull', 'Interested in learning', 'Angry and upset', 'Tired and sleepy'],
-                        correct: 'Interested in learning',
-                        explanation: 'Curious means eager to learn or know something, showing interest in discovering new things.'
-                    },
-                    
-                    // Level 2: Exception words and unusual spellings
-                    {
-                        type: 'word',
-                        word: 'through',
-                        question: 'How do you pronounce "through"?',
-                        options: ['th-roo', 'th-rough', 'th-rew', 'th-row'],
-                        correct: 'th-roo',
-                        explanation: 'Through is an exception word where "ough" sounds like "oo" - it doesn\'t follow normal spelling rules.'
-                    },
-                    {
-                        type: 'passage',
-                        passage: 'The knight fought bravely against the fierce dragon. His sword gleamed in the sunlight as he prepared for battle.',
-                        question: 'What does "fierce" mean?',
-                        options: ['Friendly and kind', 'Wild and dangerous', 'Small and weak', 'Slow and gentle'],
-                        correct: 'Wild and dangerous',
-                        explanation: 'Fierce means aggressive and dangerous, often used to describe wild animals or intense situations.'
-                    },
-                    {
-                        type: 'word',
-                        word: 'enough',
-                        question: 'How do you pronounce "enough"?',
-                        options: ['en-ough', 'en-uff', 'en-ow', 'en-ew'],
-                        correct: 'en-uff',
-                        explanation: 'Enough is another exception word where "ough" sounds like "uff" - it\'s an irregular spelling.'
-                    },
-                    
-                    // Level 3: Complex vocabulary in context
-                    {
-                        type: 'passage',
-                        passage: 'The ancient castle was surrounded by a moat filled with murky water. The drawbridge provided the only access to the fortress, which had stood for centuries.',
-                        question: 'What does "murky" mean?',
-                        options: ['Clear and clean', 'Dark and unclear', 'Warm and pleasant', 'Deep and wide'],
-                        correct: 'Dark and unclear',
-                        explanation: 'Murky means dark and unclear, often used to describe water that is dirty or cloudy.'
-                    },
-                    {
-                        type: 'word',
-                        word: 'fortress',
-                        question: 'What is a "fortress"?',
-                        options: ['A small house', 'A strong castle', 'A garden', 'A bridge'],
-                        correct: 'A strong castle',
-                        explanation: 'A fortress is a strong building designed to protect people from attack, like a castle.'
-                    },
-                    {
-                        type: 'passage',
-                        passage: 'The children were delighted when they discovered a hidden treasure chest in the attic. Their excitement was contagious, and soon everyone was searching for more secrets.',
-                        question: 'What does "contagious" mean here?',
-                        options: ['A disease', 'Spreading quickly', 'Very expensive', 'Hidden away'],
-                        correct: 'Spreading quickly',
-                        explanation: 'Contagious means spreading from one person to another, like excitement or laughter.'
-                    },
-                    
-                    // Level 4: Advanced vocabulary and context clues
-                    {
-                        type: 'passage',
-                        passage: 'The astronomer peered through his telescope at the distant galaxy. The celestial bodies twinkled like diamonds against the velvet darkness of space.',
-                        question: 'What does "celestial" mean?',
-                        options: ['Very bright', 'Relating to space', 'Very old', 'Very large'],
-                        correct: 'Relating to space',
-                        explanation: 'Celestial means relating to the sky or outer space, often used to describe stars and planets.'
-                    },
-                    {
-                        type: 'word',
-                        word: 'velvet',
-                        question: 'What does "velvet" describe?',
-                        options: ['A type of fabric', 'A color', 'A sound', 'A smell'],
-                        correct: 'A type of fabric',
-                        explanation: 'Velvet is a soft, smooth fabric with a thick pile, often used for clothing or furniture.'
-                    },
-                    {
-                        type: 'passage',
-                        passage: 'The detective was determined to solve the mysterious case. She examined every clue carefully, knowing that the slightest detail might reveal the truth.',
-                        question: 'What does "determined" mean?',
-                        options: ['Confused and unsure', 'Strong-willed and focused', 'Tired and sleepy', 'Happy and excited'],
-                        correct: 'Strong-willed and focused',
-                        explanation: 'Determined means having a strong will to achieve something, not giving up easily.'
-                    },
-                    
-                    // Level 5: Exception words and complex meanings
                     {
                         type: 'word',
                         word: 'though',
@@ -2186,9 +2063,13 @@
             alert(helpMessage);
         }
 
-        // Initialize the game
-        updateStats();
-        updateAreaStyles();
+        // Initialize the game when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Reading Island DOM loaded');
+            loadChildAge();
+            updateStats();
+            updateAreaStyles();
+        });
     </script>
 </body>
 </html> 

@@ -1027,6 +1027,7 @@
             <h1>🏴‍☠️ Learning Adventure</h1>
             <p>Transform screen time into educational treasure with Key Stage 2 learning goals</p>
             <p>Parent-approved, child-focused learning journey</p>
+            <button onclick="testClick()" style="background: #48bb78; color: white; padding: 10px 20px; border: none; border-radius: 10px; margin: 10px;">Test JavaScript</button>
         </div>
 
 
@@ -1268,8 +1269,8 @@
             console.log('startSubjectActivity called with subject:', subject);
             
             if (subject === 'math') {
-                console.log('Redirecting to index.html');
-                window.location.href = 'index.html';
+                console.log('Redirecting to times-tables.html');
+                window.location.href = 'times-tables.html';
             } else if (subject === 'english') {
                 console.log('Redirecting to reading-island.html');
                 window.location.href = 'reading-island.html';
@@ -1330,6 +1331,12 @@
             alert('Test click is working! JavaScript is functioning correctly.');
         }
 
+        // Test function to verify subject cards are clickable
+        function testSubjectClick(subject) {
+            alert('Subject card clicked: ' + subject);
+            startSubjectActivity(subject);
+        }
+
         function showHelp() {
             let helpMessage = `❓ Learning Adventure Help\n\n`;
             helpMessage += `🏴‍☠️ How to Use This Platform:\n\n`;
@@ -1366,6 +1373,50 @@
             if (confirm('Are you sure you want to reset your setup? This will clear all saved data and redirect you to the setup page.')) {
                 localStorage.clear();
                 window.location.href = 'setup.html';
+            }
+        }
+
+        function showSetupPrompt() {
+            // Add a setup banner to the page
+            const setupBanner = document.createElement('div');
+            setupBanner.style.cssText = `
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 15px;
+                margin: 20px 0;
+                border-radius: 15px;
+                text-align: center;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            `;
+            setupBanner.innerHTML = `
+                <h3>🎓 Complete Your Setup</h3>
+                <p>Set up your learning profile for a personalised experience!</p>
+                <button onclick="window.location.href='setup.html'" style="
+                    background: white;
+                    color: #667eea;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin: 10px;
+                ">Complete Setup</button>
+                <button onclick="this.parentElement.remove()" style="
+                    background: transparent;
+                    color: white;
+                    border: 2px solid white;
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin: 10px;
+                ">Skip for Now</button>
+            `;
+            
+            // Insert the banner after the header
+            const header = document.querySelector('.header');
+            if (header) {
+                header.parentNode.insertBefore(setupBanner, header.nextSibling);
             }
         }
 
@@ -1624,19 +1675,24 @@
             
             // Check if learning agreement exists
             const learningAgreement = localStorage.getItem('learningAgreement');
+            console.log('Learning agreement found:', learningAgreement);
+            
             if (!learningAgreement) {
-                // No agreement found, redirect to setup
-                window.location.href = 'setup.html';
-                return;
+                // No agreement found, show setup prompt but don't force redirect
+                console.log('No learning agreement found, showing setup prompt');
+                showSetupPrompt();
+            } else {
+                const agreement = JSON.parse(learningAgreement);
+                console.log('Parsed agreement:', agreement);
+                
+                if (!agreement.childName || !agreement.childAge) {
+                    // Incomplete agreement, show setup prompt but don't force redirect
+                    console.log('Incomplete agreement, showing setup prompt');
+                    showSetupPrompt();
+                }
             }
             
-            const agreement = JSON.parse(learningAgreement);
-            if (!agreement.childName || !agreement.childAge) {
-                // Incomplete agreement, redirect to setup
-                window.location.href = 'setup.html';
-                return;
-            }
-            
+            console.log('Agreement is complete, updating treasure progress');
             updateTreasureProgress();
         });
 

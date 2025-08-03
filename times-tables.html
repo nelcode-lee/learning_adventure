@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Times Tables Adventure - Learning Adventure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .breadcrumb {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            color: #4a5568;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .times-table-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .table-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .table-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .table-btn.completed {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+
+        .challenge-btn {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+            grid-column: span 2;
+        }
+
+        .journey-progress {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .journey-level {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #718096;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+        .question {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4a5568;
+            margin: 30px 0;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .option {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .option.correct {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+
+        .option.incorrect {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+        }
+
+        .feedback {
+            font-size: 1.2em;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .feedback.correct {
+            background: rgba(72, 187, 120, 0.2);
+            color: #38a169;
+        }
+
+        .feedback.incorrect {
+            background: rgba(245, 101, 101, 0.2);
+            color: #e53e3e;
+        }
+
+        .completion-screen {
+            text-align: center;
+        }
+
+        .trophy {
+            font-size: 4em;
+            margin: 20px 0;
+        }
+
+        .restart-btn, .menu-btn {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover, .menu-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 600px) {
+            .times-table-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .challenge-btn {
+                grid-column: span 3;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div id="name-screen">
+            <div class="breadcrumb">
+                <a href="home.html">🏠 Home</a> > 🚀 Times Tables Adventure
+            </div>
+            <h1>🚀 Times Tables Adventure</h1>
+            <p class="subtitle">Welcome, young mathematician!</p>
+            
+            <div class="journey-progress">
+                <div class="journey-level">Journey Progress: Level <span id="journey-level">1</span></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="journey-progress" style="width: 0%"></div>
+                </div>
+                <p>Completed Tables: <span id="completed-tables">0</span>/12</p>
+            </div>
+            
+            <div class="times-table-grid">
+                <button class="table-btn" onclick="startGame(2)" id="table-2">2× Table</button>
+                <button class="table-btn" onclick="startGame(3)" id="table-3">3× Table</button>
+                <button class="table-btn" onclick="startGame(4)" id="table-4">4× Table</button>
+                <button class="table-btn" onclick="startGame(5)" id="table-5">5× Table</button>
+                <button class="table-btn" onclick="startGame(6)" id="table-6">6× Table</button>
+                <button class="table-btn" onclick="startGame(7)" id="table-7">7× Table</button>
+                <button class="table-btn" onclick="startGame(8)" id="table-8">8× Table</button>
+                <button class="table-btn" onclick="startGame(9)" id="table-9">9× Table</button>
+                <button class="table-btn" onclick="startGame(10)" id="table-10">10× Table</button>
+                <button class="table-btn" onclick="startGame(11)" id="table-11">11× Table</button>
+                <button class="table-btn" onclick="startGame(12)" id="table-12">12× Table</button>
+                <button class="table-btn challenge-btn" onclick="startMixedGame()">🎯 Mixed Challenge</button>
+            </div>
+        </div>
+
+        <div id="game-screen" class="hidden">
+            <div class="breadcrumb">
+                <a href="home.html">🏠 Home</a> > <a href="#" onclick="backToMenu()">🚀 Times Tables Adventure</a> > 🎮 Playing
+            </div>
+            <h2 id="current-table">4× Times Table</h2>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-label">Score</div>
+                    <div class="stat-value" id="score">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Question</div>
+                    <div class="stat-value"><span id="current-q">1</span>/10</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Streak</div>
+                    <div class="stat-value" id="streak">0</div>
+                </div>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress" style="width: 10%"></div>
+            </div>
+
+            <div class="question" id="question">4 × 3 = ?</div>
+            <div class="options" id="options"></div>
+            <div class="feedback" id="feedback"></div>
+            
+            <button onclick="backToMenu()">Back to Menu</button>
+        </div>
+
+        <div id="completion-screen" class="hidden">
+            <div class="breadcrumb">
+                <a href="home.html">🏠 Home</a> > <a href="#" onclick="backToMenu()">🚀 Times Tables Adventure</a> > 🏆 Completion
+            </div>
+            <div class="completion-screen">
+                <div class="trophy">🏆</div>
+                <h2>Fantastic Work!</h2>
+                <p>You've completed the <span id="completed-table">times table</span> challenge!</p>
+                <div class="journey-progress">
+                    <h3>Final Score: <span id="final-score">0</span>/100</h3>
+                    <h3>Correct Answers: <span id="correct-count">0</span>/10</h3>
+                    <h3>Best Streak: <span id="best-streak">0</span> 🔥</h3>
+                </div>
+                <div>
+                    <button class="restart-btn" onclick="restartGame()">Play Again! 🎮</button>
+                    <button class="menu-btn" onclick="backToMenu()">Choose New Table 📚</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let score = 0;
+        let streak = 0;
+        let bestStreak = 0;
+        let correctAnswers = 0;
+        let questions = [];
+        let currentTable = 4;
+        let childName = '';
+        let completedTables = [];
+        let totalScore = 0;
+
+        // Reusable function to shuffle arrays (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        const encouragingMessages = [
+            "Brilliant! 🌟", "Amazing work! 🎉", "You're a star! ⭐", 
+            "Fantastic! 🚀", "Well done! 👏", "Excellent! 💫",
+            "Super! 🦸‍♂️", "Wonderful! 🎊", "Great job! 🎈"
+        ];
+
+        const tryAgainMessages = [
+            "Almost there! 💪", "Keep trying! 🌈", "You can do it! 🎯",
+            "Don't give up! 🦋", "Nearly got it! 🌸", "Good effort! 🍀"
+        ];
+
+        function enterAdventure() {
+            // Load child's name from learning agreement
+            const learningAgreement = localStorage.getItem('learningAgreement');
+            if (learningAgreement) {
+                const agreement = JSON.parse(learningAgreement);
+                childName = agreement.childName || 'Champion';
+            } else {
+                childName = 'Champion';
+            }
+            
+            showMenuScreen();
+            updateJourneyProgress();
+        }
+
+        function showMenuScreen() {
+            document.getElementById('name-screen').classList.remove('hidden');
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('completion-screen').classList.add('hidden');
+            updateJourneyProgress();
+        }
+
+        function updateJourneyProgress() {
+            const journeyLevel = Math.floor(completedTables.length / 3) + 1;
+            const progressPercent = (completedTables.length % 3) * 33.33;
+            
+            document.getElementById('journey-level').textContent = journeyLevel;
+            document.getElementById('journey-progress').style.width = progressPercent + '%';
+            document.getElementById('completed-tables').textContent = completedTables.length;
+            
+            // Update completed table buttons
+            for (let i = 2; i <= 12; i++) {
+                const btn = document.getElementById(`table-${i}`);
+                if (btn) {
+                    if (completedTables.includes(i)) {
+                        btn.classList.add('completed');
+                    } else {
+                        btn.classList.remove('completed');
+                    }
+                }
+            }
+        }
+
+        function startGame(table) {
+            currentTable = table;
+            currentQuestion = 0;
+            score = 0;
+            streak = 0;
+            correctAnswers = 0;
+            
+            document.getElementById('current-table').textContent = `${table}× Times Table`;
+            generateQuestions(table);
+            showGameScreen();
+            displayQuestion();
+            updateStats();
+        }
+
+        function startMixedGame() {
+            currentTable = 'mixed';
+            currentQuestion = 0;
+            score = 0;
+            streak = 0;
+            correctAnswers = 0;
+            
+            document.getElementById('current-table').textContent = 'Mixed Challenge';
+            generateMixedQuestions();
+            showGameScreen();
+            displayQuestion();
+            updateStats();
+        }
+
+        function generateQuestions(table) {
+            questions = [];
+            const usedQuestions = new Set();
+            
+            while (questions.length < 10) {
+                const multiplier = Math.floor(Math.random() * 12) + 1;
+                const questionKey = `${table}x${multiplier}`;
+                
+                if (!usedQuestions.has(questionKey)) {
+                    usedQuestions.add(questionKey);
+                    const correctAnswer = table * multiplier;
+                    const wrongAnswers = generateWrongAnswers(correctAnswer);
+                    const allAnswers = [correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+                    
+                    questions.push({
+                        question: `${table} × ${multiplier} = ?`,
+                        answers: allAnswers,
+                        correct: correctAnswer
+                    });
+                }
+            }
+        }
+
+        function generateMixedQuestions() {
+            questions = [];
+            const usedQuestions = new Set();
+            
+            while (questions.length < 10) {
+                const table = Math.floor(Math.random() * 11) + 2; // 2-12
+                const multiplier = Math.floor(Math.random() * 12) + 1;
+                const questionKey = `${table}x${multiplier}`;
+                
+                if (!usedQuestions.has(questionKey)) {
+                    usedQuestions.add(questionKey);
+                    const correctAnswer = table * multiplier;
+                    const wrongAnswers = generateWrongAnswers(correctAnswer);
+                    const allAnswers = [correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+                    
+                    questions.push({
+                        question: `${table} × ${multiplier} = ?`,
+                        answers: allAnswers,
+                        correct: correctAnswer
+                    });
+                }
+            }
+        }
+
+        function generateWrongAnswers(correct) {
+            const wrong = new Set();
+            while (wrong.size < 3) {
+                let wrongAnswer = correct + (Math.floor(Math.random() * 20) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                if (wrongAnswer !== correct && wrongAnswer > 0) {
+                    wrong.add(wrongAnswer);
+                }
+            }
+            return Array.from(wrong);
+        }
+
+        function showGameScreen() {
+            document.getElementById('name-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+            document.getElementById('completion-screen').classList.add('hidden');
+        }
+
+        function displayQuestion() {
+            if (currentQuestion >= questions.length) {
+                showCompletion();
+                return;
+            }
+
+            const q = questions[currentQuestion];
+            document.getElementById('question').textContent = q.question;
+            document.getElementById('current-q').textContent = currentQuestion + 1;
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            q.answers.forEach(answer => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = answer;
+                button.onclick = () => selectAnswer(answer);
+                optionsContainer.appendChild(button);
+            });
+            
+            // Update progress bar
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function selectAnswer(answer) {
+            const q = questions[currentQuestion];
+            const isCorrect = answer === q.correct;
+            
+            if (isCorrect) {
+                score += 10;
+                correctAnswers++;
+                streak++;
+                if (streak > bestStreak) bestStreak = streak;
+            } else {
+                streak = 0;
+            }
+            
+            // Update UI
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = streak;
+            
+            // Show feedback
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = isCorrect ? 
+                encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)] : 
+                tryAgainMessages[Math.floor(Math.random() * tryAgainMessages.length)];
+            feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            
+            // Highlight correct answer
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                if (parseInt(option.textContent) === q.correct) {
+                    option.classList.add('correct');
+                } else if (parseInt(option.textContent) === answer && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+                option.onclick = null; // Disable further clicks
+            });
+            
+            // Move to next question after delay
+            setTimeout(() => {
+                currentQuestion++;
+                displayQuestion();
+                document.getElementById('feedback').textContent = '';
+            }, 1500);
+        }
+
+        function updateStats() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('streak').textContent = streak;
+        }
+
+        function showCompletion() {
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('completion-screen').classList.remove('hidden');
+            
+            // Update completion stats
+            document.getElementById('completed-table').textContent = `${currentTable}× times table`;
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('correct-count').textContent = correctAnswers;
+            document.getElementById('best-streak').textContent = bestStreak;
+            
+            // Save progress if completed with good score
+            if (correctAnswers >= 8 && currentTable !== 'mixed' && !completedTables.includes(currentTable)) {
+                completedTables.push(currentTable);
+                localStorage.setItem('completedTables', JSON.stringify(completedTables));
+                totalScore += score;
+                localStorage.setItem('totalScore', totalScore.toString());
+            }
+        }
+
+        function restartGame() {
+            if (currentTable === 'mixed') {
+                startMixedGame();
+            } else {
+                startGame(currentTable);
+            }
+        }
+
+        function backToMenu() {
+            showMenuScreen();
+        }
+
+        // Initialize the game
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load completed tables from localStorage
+            completedTables = JSON.parse(localStorage.getItem('completedTables') || '[]');
+            totalScore = parseInt(localStorage.getItem('totalScore') || '0');
+            
+            // Load child's name from learning agreement
+            const learningAgreement = localStorage.getItem('learningAgreement');
+            if (learningAgreement) {
+                const agreement = JSON.parse(learningAgreement);
+                childName = agreement.childName || 'Champion';
+            } else {
+                childName = 'Champion';
+            }
+            
+            // Show menu directly
+            showMenuScreen();
+        });
+    </script>
+</body>
+</html> 
