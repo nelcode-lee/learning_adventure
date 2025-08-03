@@ -263,6 +263,7 @@
                     <div class="progress-fill" id="journey-progress" style="width: 0%"></div>
                 </div>
                 <p>Completed Tables: <span id="completed-tables">0</span>/12</p>
+                <p style="color: #667eea; font-weight: bold;">Age-Appropriate Tables for: <span id="age-display">7 years old</span></p>
             </div>
             
             <div class="times-table-grid">
@@ -343,6 +344,7 @@
         let questions = [];
         let currentTable = 4;
         let childName = '';
+        let childAge = 7;
         let completedTables = [];
         let totalScore = 0;
 
@@ -368,17 +370,33 @@
         ];
 
         function enterAdventure() {
-            // Load child's name from learning agreement
+            // Load child's name and age from learning agreement
             const learningAgreement = localStorage.getItem('learningAgreement');
             if (learningAgreement) {
                 const agreement = JSON.parse(learningAgreement);
                 childName = agreement.childName || 'Champion';
+                childAge = agreement.childAge || 7;
             } else {
                 childName = 'Champion';
+                childAge = 7;
             }
             
             showMenuScreen();
             updateJourneyProgress();
+        }
+
+        function getAgeAppropriateTables() {
+            if (childAge <= 7) {
+                return [2, 5, 10]; // Basic tables for age 7
+            } else if (childAge <= 8) {
+                return [2, 3, 4, 5, 10]; // Add 3 and 4 for age 8
+            } else if (childAge <= 9) {
+                return [2, 3, 4, 5, 6, 10]; // Add 6 for age 9
+            } else if (childAge <= 10) {
+                return [2, 3, 4, 5, 6, 7, 8, 10]; // Add 7 and 8 for age 10
+            } else {
+                return [2, 3, 4, 5, 6, 7, 8, 9, 11, 12]; // All tables for age 11+
+            }
         }
 
         function showMenuScreen() {
@@ -389,6 +407,7 @@
         }
 
         function updateJourneyProgress() {
+            const ageAppropriateTables = getAgeAppropriateTables();
             const journeyLevel = Math.floor(completedTables.length / 3) + 1;
             const progressPercent = (completedTables.length % 3) * 33.33;
             
@@ -396,17 +415,25 @@
             document.getElementById('journey-progress').style.width = progressPercent + '%';
             document.getElementById('completed-tables').textContent = completedTables.length;
             
-            // Update completed table buttons
+            // Update completed table buttons and show/hide based on age
             for (let i = 2; i <= 12; i++) {
                 const btn = document.getElementById(`table-${i}`);
                 if (btn) {
-                    if (completedTables.includes(i)) {
-                        btn.classList.add('completed');
+                    if (ageAppropriateTables.includes(i)) {
+                        btn.style.display = 'block';
+                        if (completedTables.includes(i)) {
+                            btn.classList.add('completed');
+                        } else {
+                            btn.classList.remove('completed');
+                        }
                     } else {
-                        btn.classList.remove('completed');
+                        btn.style.display = 'none';
                     }
                 }
             }
+            
+            // Update age display
+            document.getElementById('age-display').textContent = `${childAge} years old`;
         }
 
         function startGame(table) {
@@ -463,9 +490,10 @@
         function generateMixedQuestions() {
             questions = [];
             const usedQuestions = new Set();
+            const ageAppropriateTables = getAgeAppropriateTables();
             
             while (questions.length < 10) {
-                const table = Math.floor(Math.random() * 11) + 2; // 2-12
+                const table = ageAppropriateTables[Math.floor(Math.random() * ageAppropriateTables.length)];
                 const multiplier = Math.floor(Math.random() * 12) + 1;
                 const questionKey = `${table}x${multiplier}`;
                 
